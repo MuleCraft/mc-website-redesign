@@ -1,7 +1,10 @@
 import { Navigation } from "@/components/Navigation";
-import { Hero } from "@/components/Hero";
+import { HeroCarousel } from "@/components/HeroCarousel";
+import { PlatformOverview } from "@/components/PlatformOverview";
+import { AiIntegrationCta } from "@/components/AiIntegrationCta";
+import { StatsSection } from "@/components/StatsSection";
+import { HowItWorks } from "@/components/HowItWorks";
 import { Services } from "@/components/Services";
-import { Stats } from "@/components/Stats";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
 
@@ -9,9 +12,12 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <Hero />
+      <HeroCarousel />
+      <PlatformOverview />
+      <AiIntegrationCta />
+      <StatsSection />
+      <HowItWorks />
       <Services />
-      <Stats />
       <CTA />
       <Footer />
     </div>

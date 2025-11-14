@@ -47,10 +47,17 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        brand: {
-          blue: "hsl(210 100% 48%)",
-          purple: "hsl(270 80% 60%)",
-          pink: "hsl(330 85% 65%)",
+        boomi: {
+          purple: "hsl(246 71% 59%)",
+          navy: "hsl(210 100% 13%)",
+          magenta: "hsl(332 60% 47%)",
+          brightPurple: "hsl(247 79% 65%)",
+          teal: "hsl(177 100% 40%)",
+          coral: "hsl(0 100% 71%)",
+          lightGray: "hsl(0 0% 96%)",
+          mediumGray: "hsl(0 0% 40%)",
+          borderGray: "hsl(0 0% 88%)",
+          darkText: "hsl(240 10% 10%)",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -62,6 +69,10 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

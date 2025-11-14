@@ -1,93 +1,159 @@
-const footerLinks = {
-  "WHY MULECRAFT": [
-    "The MuleCraft Difference",
-    "What is Integration?",
-    "Pricing & Editions",
-  ],
-  "CAPABILITIES": [
-    "MuleSoft Platform Overview",
-    "Integration & Automation",
-    "AI Management",
-    "Data Management",
-    "API Management",
-  ],
-  "CONNECTORS": [
-    "SAP",
-    "Salesforce",
-    "NetSuite",
-    "ServiceNow",
-    "AWS",
-  ],
-  "RESOURCES": [
-    "Resource Center",
-    "Our Customers",
-    "Blog",
-    "Events & Webinars",
-    "Training",
-  ],
-  "SUPPORT": [
-    "Help Docs",
-    "Submit a Ticket",
-    "System Status",
-    "Developer Docs",
-  ],
-  "COMPANY": [
-    "About",
-    "Careers",
-    "Team",
-    "Newsroom",
-    "Contact us",
-  ],
-};
+import { Link } from 'react-router-dom';
+import { Linkedin, Facebook, Youtube, Instagram } from 'lucide-react';
+
+const navColumns = [
+    {
+        title: 'WHY BOOMI',
+        links: [
+            { text: 'The Boomi Difference', href: '#' },
+            { text: 'What is iPaaS?', href: '#' },
+            { text: 'Pricing & Editions', href: '#' },
+            { text: 'Boomi vs Mulesoft', href: '#' },
+            { text: 'Boomi vs Workato', href: '#' },
+            { text: 'Migrate from TIBCO to Boomi', href: '#' },
+        ],
+    },
+    {
+        title: 'CAPABILITIES',
+        links: [
+            { text: 'Boomi Platform Overview', href: '#' },
+            { text: 'Integration & Automation', href: '#' },
+            { text: 'AI Management', href: '#' },
+            { text: 'Data Management', href: '#' },
+            { text: 'API Management', href: '#' },
+            { text: 'Product Updates', href: '#' },
+        ],
+    },
+    {
+        title: 'RESOURCES',
+        links: [
+            { text: 'Resource Center', href: '#' },
+            { text: 'Blog', href: '#' },
+            { text: 'Events & Webinars', href: '#' },
+            { text: 'Training', href: '#' },
+            { text: 'Community', href: '#' },
+            { text: 'Documentation', href: '#' },
+        ],
+    },
+    {
+        title: 'SUPPORT',
+        links: [
+            { text: 'Help Docs', href: '#' },
+            { text: 'Submit a Ticket', href: '#' },
+            { text: 'System Status', href: '#' },
+            { text: 'Developer Docs', href: '#' },
+        ],
+    },
+    {
+        title: 'COMPANY',
+        links: [
+            { text: 'About', href: '#' },
+            { text: 'Careers', href: '#' },
+            { text: 'Team', href: '#' },
+            { text: 'Newsroom', href: '#' },
+            { text: 'Innovation', href: '#' },
+            { text: 'Contact us', href: '#' },
+        ],
+    },
+    {
+        title: 'GET STARTED',
+        links: [
+            { text: 'Start Free Trial', href: '#' },
+            { text: 'Watch Demo', href: '#' },
+            { text: 'Request a Demo', href: '#' },
+            { text: 'Explore Marketplace', href: '#' },
+        ],
+    },
+];
+
+const legalLinks = [
+    { text: 'Privacy', href: '#' },
+    { text: 'Compliance', href: '#' },
+    { text: 'Terms of Service', href: '#' },
+    { text: 'Cookie Preference', href: '#' },
+];
+
+const socialLinks = [
+    { Icon: Linkedin, href: 'https://www.linkedin.com/company/boomi-inc', name: 'LinkedIn' },
+    { Icon: Facebook, href: 'https://www.facebook.com/Boomi/', name: 'Facebook' },
+    { Icon: Youtube, href: 'https://www.youtube.com/channel/UC-nL33a5I3a_CEh22iTuXqA', name: 'YouTube' },
+    { Icon: Instagram, href: 'https://www.instagram.com/boomi_inc/', name: 'Instagram' },
+];
 
 export const Footer = () => {
-  return (
-    <footer className="bg-slate-900 text-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h3 className="font-semibold text-sm mb-4 text-slate-300">{category}</h3>
-              <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm text-slate-400 hover:text-white transition-colors">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+    return (
+        <footer style={{ backgroundColor: '#002144' }} className="text-white font-sans">
+            <div className="mx-auto max-w-[1400px] px-8 pt-12 pb-6 lg:pt-16 lg:pb-8">
+                <div className="mb-12 grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+                    {navColumns.map((column) => (
+                        <div key={column.title}>
+                            <h4 className="mb-6 text-sm font-bold uppercase tracking-widest text-white/60">
+                                {column.title}
+                            </h4>
+                            <ul className="space-y-0.5">
+                                {column.links.map((link) => (
+                                    <li key={link.text}>
+                                        <Link to={link.href} className="text-[15px] leading-loose text-white/80 transition-colors duration-200 hover:text-white hover:underline">
+                                            {link.text}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+                <div className="border-t border-white/20 pt-8">
+                    <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between">
+                        <div className="flex flex-col items-center gap-4 text-center lg:items-start lg:text-left">
+                            <Link to="/">
+                                <img
+                                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Boomi-Logo-White-Footer-109.svg"
+                                    alt="Boomi Logo"
+                                    className="h-10 w-auto"
+                                />
+                            </Link>
+                            <p className="max-w-xs text-sm text-white/60">
+                                The #1 intelligent iPaaS for digital transformation.
+                            </p>
+                        </div>
+                        
+                        <nav className="order-last lg:order-none">
+                            <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2 lg:gap-x-6">
+                                {legalLinks.map((link, index) => (
+                                    <li key={link.text} className="flex items-center">
+                                        <Link to={link.href} className="text-sm text-white/60 transition-colors hover:text-white">
+                                            {link.text}
+                                        </Link>
+                                        {index < legalLinks.length - 1 && (
+                                            <span className="ml-4 select-none text-white/60 lg:ml-6" aria-hidden="true">|</span>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                        
+                        <div className="flex shrink-0 items-center gap-6">
+                            <div className="flex items-center gap-6">
+                                {socialLinks.map(({ Icon, href, name }) => (
+                                    <a key={name} href={href} aria-label={name} target="_blank" rel="noopener noreferrer" className="text-white/60 transition-all hover:scale-110 hover:text-white">
+                                        <Icon className="h-6 w-6" />
+                                    </a>
+                                ))}
+                            </div>
+                            <a href="#" target="_blank" rel="noopener noreferrer">
+                                <img
+                                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/G2-Review-Footer-1-1-110.svg"
+                                    alt="G2 Review Badge"
+                                    className="h-9 w-auto"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                    <div className="mt-8 text-center text-[13px] text-white/50 lg:mt-6 lg:text-left">
+                        © 2025 Copyright Boomi, LP. All rights reserved.
+                    </div>
+                </div>
             </div>
-          ))}
-        </div>
-        
-        <div className="border-t border-slate-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">M</span>
-              </div>
-              <span className="font-semibold">MuleCraft</span>
-            </div>
-            
-            <p className="text-sm text-slate-400">
-              © 2025 Copyright MuleCraft. All rights reserved.
-            </p>
-            
-            <div className="flex gap-4">
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                Privacy
-              </a>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                Compliance
-              </a>
-              <a href="#" className="text-slate-400 hover:text-white transition-colors">
-                Terms
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 };

@@ -1,4 +1,3 @@
-import { Navigation } from "@/components/Navigation";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { PlatformOverview } from "@/components/PlatformOverview";
 import { AiIntegrationCta } from "@/components/AiIntegrationCta";
@@ -11,7 +10,6 @@ import { Footer } from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Navigation />
       <HeroCarousel />
       <PlatformOverview />
       <AiIntegrationCta />

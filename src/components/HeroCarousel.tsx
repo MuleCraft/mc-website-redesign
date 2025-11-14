@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Pause, Play, Menu } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play, Menu, ChevronDown, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const slideData = [
@@ -60,10 +60,63 @@ const logoData = [
 
 const AUTOPLAY_INTERVAL = 5000;
 
+const servicesData = {
+  popular: [
+    { text: 'Mule 4 Migration', href: '#' },
+    { text: 'Mulesoft Development', href: '#' },
+    { text: 'Snaplogic Strategies', href: '#' },
+  ],
+  mulesoft: [
+    { text: 'Mulesoft Development', href: '#' },
+    { text: 'Mule 4 Migration', href: '#' },
+    { text: 'Mule B2B Integration', href: '#' },
+    { text: 'Ops & Maintenance', href: '#' },
+  ],
+  salesforce: [
+    { text: 'Sales Cloud', href: '#' },
+    { text: 'Data & Org Migration', href: '#' },
+    { text: 'Managed Services', href: '#' },
+  ],
+  other: [
+    { text: 'User Interface Design', href: '#' },
+    { text: 'Integrated Web Design', href: '#' },
+    { text: 'Snaplogic Strategies', href: '#' },
+    { text: 'Apigee API Solutions', href: '#' },
+  ],
+};
+
+const productsData = {
+  recentlyLaunched: [
+    { text: 'MuleSoftLP', href: 'https://mulesoft.dev/' },
+    { text: 'SnapLogic', href: 'https://snaplogic.playground.mulecraft.in/' },
+    { text: 'RAMLify Flow Agent', href: 'https://ramlify-flow-agent.lovable.app/' },
+    { text: 'Goose', href: '#' },
+  ],
+  mulesoft: [
+    { text: 'Community Anypoint Platform', href: '#' },
+    { text: 'Active Mq', href: '#' },
+    { text: 'MuleSoftLP', href: 'https://mulesoft.dev/' },
+    { text: 'MuleCraft Academy', href: '#' },
+  ],
+  other: [
+    { text: 'SnapLogic', href: 'https://snaplogic.playground.mulecraft.in/' },
+    { text: 'RAMLify Flow Agent', href: 'https://ramlify-flow-agent.lovable.app/' },
+    { text: 'AnypointLP', href: '#' },
+    { text: 'Goose', href: '#' },
+    { text: 'Mule Migration Nexus', href: '#' },
+    { text: 'DataWeave Task Generator', href: '#' },
+    { text: 'Datadog Integration Automation', href: '#' },
+  ],
+};
+
 export const HeroCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<'services' | 'products' | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const goToSlide = useCallback((index: number) => {
     setActiveIndex(index);
@@ -96,6 +149,26 @@ export const HeroCarousel = () => {
     };
   }, [isPaused, nextSlide]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    if (openDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [openDropdown]);
+
   return (
     <>
       <style>{`
@@ -109,35 +182,316 @@ export const HeroCarousel = () => {
         }
       `}</style>
       <div className="bg-white">
-        <section className="relative overflow-hidden bg-gradient-to-r from-[#E6F2F8] via-[#D4E8F2] to-[#C8E3F0] text-[#002144] [border-bottom-left-radius:50%_100px] [border-bottom-right-radius:50%_100px]">
-          {/* Navigation integrated into hero section */}
-          <nav className="container mx-auto max-w-[1400px] px-6 lg:px-8 pt-6 pb-4">
+        {/* Fixed Navigation Bar */}
+        <nav className={`fixed top-0 left-0 right-0 z-[100] w-full transition-all duration-300 bg-white ${
+          isScrolled ? 'shadow-md' : ''
+        }`}>
+          <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center gap-2">
-                <img 
-                  src="/mulecraftlogo.svg" 
-                  alt="MuleCraft Logo" 
-                  className="h-10 w-auto"
-                />
+                <a href="/">
+                  <img 
+                    src="/mulecraftlogo.svg" 
+                    alt="MuleCraft Logo" 
+                    className="h-8 sm:h-10 w-auto"
+                  />
+                </a>
               </div>
               
-              <div className="hidden md:flex items-center gap-8">
-                <a href="#about" className="text-[#002144]/80 hover:text-[#002144] transition-colors text-[15px] font-medium">About</a>
-                <a href="#services" className="text-[#002144]/80 hover:text-[#002144] transition-colors text-[15px] font-medium">Services</a>
-                <a href="#mulesoft" className="text-[#002144]/80 hover:text-[#002144] transition-colors text-[15px] font-medium">MuleSoft</a>
-                <a href="#salesforce" className="text-[#002144]/80 hover:text-[#002144] transition-colors text-[15px] font-medium">Salesforce</a>
-                <a href="#blog" className="text-[#002144]/80 hover:text-[#002144] transition-colors text-[15px] font-medium">Blog</a>
+              {/* Desktop Navigation */}
+              <div className="hidden lg:flex items-center gap-6" ref={dropdownRef}>
+                {/* Services Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'services' ? null : 'services')}
+                    className={`flex items-center gap-1 text-[15px] font-medium transition-colors ${
+                      isScrolled 
+                        ? openDropdown === 'services' 
+                          ? 'text-[#002144] border-b-2 border-[#002144] pb-1' 
+                          : 'text-[#002144]/80 hover:text-[#002144]'
+                        : openDropdown === 'services'
+                          ? 'text-[#002144] border-b-2 border-[#002144] pb-1'
+                          : 'text-[#002144]/80 hover:text-[#002144]'
+                    }`}
+                  >
+                    Services
+                    <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === 'services' ? 'rotate-180' : ''}`} />
+                  </button>
+                  {openDropdown === 'services' && (
+                    <div className="fixed top-16 left-0 right-0 bg-white shadow-xl border-t border-gray-100 overflow-hidden z-[99]">
+                      <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-4 p-6 gap-6">
+                        {/* Popular Services */}
+                        <div className="bg-[#E6F2F8] p-4 rounded-lg">
+                          <h3 className="font-bold text-[#002144] text-sm mb-3">Popular Services</h3>
+                          <ul className="space-y-2">
+                            {servicesData.popular.map((item, idx) => (
+                              <li key={idx}>
+                                <a href={item.href} className="text-[#002144] text-sm hover:underline">
+                                  {item.text}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        {/* Mulesoft */}
+                        <div>
+                          <h3 className="font-bold text-[#002144] text-sm mb-3">Mulesoft</h3>
+                          <ul className="space-y-2">
+                            {servicesData.mulesoft.map((item, idx) => (
+                              <li key={idx}>
+                                <a href={item.href} className="text-[#002144] text-sm hover:underline">
+                                  {item.text}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        {/* Salesforce */}
+                        <div>
+                          <h3 className="font-bold text-[#002144] text-sm mb-3">Salesforce</h3>
+                          <ul className="space-y-2">
+                            {servicesData.salesforce.map((item, idx) => (
+                              <li key={idx}>
+                                <a href={item.href} className="text-[#002144] text-sm hover:underline">
+                                  {item.text}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        {/* Other Services */}
+                        <div>
+                          <h3 className="font-bold text-[#002144] text-sm mb-3">Other Services</h3>
+                          <ul className="space-y-2">
+                            {servicesData.other.map((item, idx) => (
+                              <li key={idx}>
+                                <a href={item.href} className="text-[#002144] text-sm hover:underline">
+                                  {item.text}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        </div>
+                        <div className="bg-[#E6F2F8] px-6 py-4 flex items-center justify-between border-t border-gray-200">
+                          <a href="#" className="bg-[#002144] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#002144]/90 transition-colors">
+                            Let's Go
+                          </a>
+                          <div>
+                            <h4 className="font-bold text-[#002144] text-sm mb-1">Request a Demo</h4>
+                            <p className="text-[#002144]/70 text-xs">See how MuleCraft connects systems, automates workflows and powers smarter digital experiences.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Products Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'products' ? null : 'products')}
+                    className={`flex items-center gap-1 text-[15px] font-medium transition-colors ${
+                      isScrolled 
+                        ? openDropdown === 'products' 
+                          ? 'text-[#002144] border-b-2 border-[#002144] pb-1' 
+                          : 'text-[#002144]/80 hover:text-[#002144]'
+                        : openDropdown === 'products'
+                          ? 'text-[#002144] border-b-2 border-[#002144] pb-1'
+                          : 'text-[#002144]/80 hover:text-[#002144]'
+                    }`}
+                  >
+                    Products
+                    <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === 'products' ? 'rotate-180' : ''}`} />
+                  </button>
+                  {openDropdown === 'products' && (
+                    <div className="fixed top-16 left-0 right-0 bg-white shadow-xl border-t border-gray-100 overflow-hidden z-[99]">
+                      <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-3 p-6 gap-6">
+                          {/* Recently Launched */}
+                          <div className="bg-[#E6F2F8] p-4 rounded-lg">
+                            <h3 className="font-bold text-[#002144] text-sm mb-3">Recently Launched</h3>
+                            <ul className="space-y-2">
+                              {productsData.recentlyLaunched.map((item, idx) => (
+                                <li key={idx}>
+                                  <a 
+                                    href={item.href} 
+                                    className="text-[#6C4FE0] text-sm hover:underline font-medium"
+                                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                  >
+                                    {item.text}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          {/* Mulesoft */}
+                          <div>
+                            <h3 className="font-bold text-[#002144] text-sm mb-3">Mulesoft</h3>
+                            <ul className="space-y-2">
+                              {productsData.mulesoft.map((item, idx) => (
+                                <li key={idx}>
+                                  <a 
+                                    href={item.href} 
+                                    className="text-[#002144] text-sm hover:underline"
+                                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                  >
+                                    {item.text}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          {/* Other Products */}
+                          <div>
+                            <h3 className="font-bold text-[#002144] text-sm mb-3">Other Products</h3>
+                            <ul className="space-y-2">
+                              {productsData.other.map((item, idx) => (
+                                <li key={idx}>
+                                  <a 
+                                    href={item.href} 
+                                    className="text-[#002144] text-sm hover:underline"
+                                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                  >
+                                    {item.text}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="bg-[#E6F2F8] px-6 py-4 flex items-center justify-between border-t border-gray-200">
+                          <a href="#" className="bg-[#002144] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#002144]/90 transition-colors">
+                            Let's Go
+                          </a>
+                          <div>
+                            <h4 className="font-bold text-[#002144] text-sm mb-1">Request a Demo</h4>
+                            <p className="text-[#002144]/70 text-xs">See how MuleCraft connects systems, automates workflows and powers smarter digital experiences.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <a href="#about" className={`text-[15px] font-medium transition-colors ${
+                  isScrolled ? 'text-[#002144]/80 hover:text-[#002144]' : 'text-[#002144]/80 hover:text-[#002144]'
+                }`}>
+                  About
+                </a>
+                <a href="#resources" className={`text-[15px] font-medium transition-colors ${
+                  isScrolled ? 'text-[#002144]/80 hover:text-[#002144]' : 'text-[#002144]/80 hover:text-[#002144]'
+                }`}>
+                  Resources
+                </a>
+                <a href="#contact" className={`text-[15px] font-medium transition-colors ${
+                  isScrolled ? 'text-[#002144]/80 hover:text-[#002144]' : 'text-[#002144]/80 hover:text-[#002144]'
+                }`}>
+                  Contact Us
+                </a>
               </div>
               
               <div className="flex items-center gap-3">
-                <Button variant="ghost" className="hidden md:flex text-[#002144] hover:bg-[#002144]/10 border border-[#002144]/30">Contact Us</Button>
-                <Button className="hidden md:flex bg-[#002144] text-white hover:bg-[#002144]/90 font-semibold">Book Demo</Button>
-                <Button variant="ghost" size="icon" className="md:hidden text-[#002144] hover:bg-[#002144]/10">
-                  <Menu className="h-5 w-5" />
+                <Button className={`hidden lg:flex font-semibold ${
+                  isScrolled ? 'bg-[#002144] text-white hover:bg-[#002144]/90' : 'bg-[#002144] text-white hover:bg-[#002144]/90'
+                }`}>
+                  Book a Demo
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="lg:hidden"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                  {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </Button>
               </div>
             </div>
-          </nav>
+          </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden border-t border-gray-200 bg-white">
+              <div className="container mx-auto max-w-[1400px] px-4 py-4 space-y-4">
+                <div>
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'services' ? null : 'services')}
+                    className="flex items-center justify-between w-full text-[#002144] font-medium py-2"
+                  >
+                    Services
+                    <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === 'services' ? 'rotate-180' : ''}`} />
+                  </button>
+                  {openDropdown === 'services' && (
+                    <div className="pl-4 mt-2 space-y-2">
+                      <div>
+                        <h4 className="font-semibold text-[#002144] text-sm mb-2">Popular Services</h4>
+                        <ul className="space-y-1">
+                          {servicesData.popular.map((item, idx) => (
+                            <li key={idx}>
+                              <a href={item.href} className="text-[#002144]/80 text-sm">{item.text}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-[#002144] text-sm mb-2">Mulesoft</h4>
+                        <ul className="space-y-1">
+                          {servicesData.mulesoft.map((item, idx) => (
+                            <li key={idx}>
+                              <a href={item.href} className="text-[#002144]/80 text-sm">{item.text}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === 'products' ? null : 'products')}
+                    className="flex items-center justify-between w-full text-[#002144] font-medium py-2"
+                  >
+                    Products
+                    <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === 'products' ? 'rotate-180' : ''}`} />
+                  </button>
+                  {openDropdown === 'products' && (
+                    <div className="pl-4 mt-2 space-y-2">
+                      <div>
+                        <h4 className="font-semibold text-[#002144] text-sm mb-2">Recently Launched</h4>
+                        <ul className="space-y-1">
+                          {productsData.recentlyLaunched.map((item, idx) => (
+                            <li key={idx}>
+                              <a 
+                                href={item.href} 
+                                className="text-[#002144]/80 text-sm"
+                                target={item.href.startsWith('http') ? '_blank' : undefined}
+                                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              >
+                                {item.text}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <a href="#about" className="block text-[#002144] font-medium py-2">About</a>
+                <a href="#resources" className="block text-[#002144] font-medium py-2">Resources</a>
+                <a href="#contact" className="block text-[#002144] font-medium py-2">Contact Us</a>
+                <div className="pt-4 border-t border-gray-200">
+                  <Button className="w-full bg-[#002144] text-white">Book a Demo</Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </nav>
+
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#E6F2F8] via-[#D4E8F2] to-[#C8E3F0] text-[#002144] [border-bottom-left-radius:50%_100px] [border-bottom-right-radius:50%_100px] pt-16">
           
           <div className="container relative mx-auto max-w-[1400px] px-6 py-12 md:py-16 lg:py-20 lg:pl-16 lg:pr-16">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
@@ -179,60 +533,101 @@ export const HeroCarousel = () => {
               <div className="relative hidden w-full lg:block">
                 <div className="float-animation">
                   <img
-                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/images/boomi-hero-brand-display-16.png"
-                    alt="Abstract 3D sphere with floating bubbles and a device"
+                    src="/heroanimation.webp"
+                    alt="MuleCraft integration platform visualization"
                     className="h-auto w-full"
                   />
                 </div>
               </div>
             </div>
 
+            {/* Desktop Controls */}
             <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 items-center justify-center gap-4 lg:flex">
+              <button 
+                onClick={prevSlide} 
+                aria-label="Previous slide" 
+                className="text-[#002144]/60 hover:text-[#002144] transition-colors"
+              >
+                <ChevronLeft className="h-5 w-5 stroke-2" />
+              </button>
               {slideData.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`h-2 w-2 rounded-full transition-colors ${activeIndex === index ? 'bg-[#002144]/60' : 'bg-[#002144]/40 hover:bg-[#002144]/50'}`}
+                  className={`h-2 w-2 rounded-full transition-colors ${
+                    activeIndex === index 
+                      ? 'bg-[#002144]' 
+                      : 'bg-[#002144]/30 hover:bg-[#002144]/50'
+                  }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
-              <button onClick={togglePause} className="ml-2 text-[#002144]" aria-label={isPaused ? 'Play carousel' : 'Pause carousel'}>
-                {isPaused ? <Play className="h-4 w-4 opacity-80" /> : <Pause className="h-4 w-4 opacity-80" />}
+              <button 
+                onClick={nextSlide} 
+                aria-label="Next slide" 
+                className="text-[#002144] hover:opacity-80 transition-opacity"
+              >
+                <ChevronRight className="h-5 w-5 stroke-2" />
+              </button>
+              <button 
+                onClick={togglePause} 
+                className="ml-2 text-[#002144]/60 hover:text-[#002144] transition-colors" 
+                aria-label={isPaused ? 'Play carousel' : 'Pause carousel'}
+              >
+                {isPaused ? (
+                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
+                    <Play className="h-4 w-4 ml-0.5 text-[#002144]/60" />
+                  </div>
+                ) : (
+                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
+                    <Pause className="h-4 w-4 text-[#002144]/60" />
+                  </div>
+                )}
               </button>
             </div>
-
-            <button
-              onClick={prevSlide}
-              className="absolute left-2 top-1/2 hidden -translate-y-1/2 lg:flex h-10 w-10 items-center justify-center rounded-full bg-[#002144]/20 transition-opacity hover:bg-[#002144]/30 text-[#002144] z-30"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-2 top-1/2 hidden -translate-y-1/2 lg:flex h-10 w-10 items-center justify-center rounded-full bg-[#002144]/20 transition-opacity hover:bg-[#002144]/30 text-[#002144] z-30"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
             
+            {/* Mobile Controls */}
             <div className="mt-12 flex items-center justify-center gap-4 lg:hidden">
-              <button onClick={prevSlide} aria-label="Previous slide" className="text-[#002144]">
-                <ChevronLeft className="h-6 w-6 opacity-80" />
+              <button 
+                onClick={prevSlide} 
+                aria-label="Previous slide" 
+                className="text-[#002144]/60 hover:text-[#002144] transition-colors"
+              >
+                <ChevronLeft className="h-6 w-6 stroke-2" />
               </button>
               {slideData.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`h-2 w-2 rounded-full transition-colors ${activeIndex === index ? 'bg-[#002144]/60' : 'bg-[#002144]/40 hover:bg-[#002144]/50'}`}
+                  className={`h-2 w-2 rounded-full transition-colors ${
+                    activeIndex === index 
+                      ? 'bg-[#002144]' 
+                      : 'bg-[#002144]/30 hover:bg-[#002144]/50'
+                  }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
-              <button onClick={nextSlide} aria-label="Next slide" className="text-[#002144]">
-                <ChevronRight className="h-6 w-6 opacity-80" />
+              <button 
+                onClick={nextSlide} 
+                aria-label="Next slide" 
+                className="text-[#002144] hover:opacity-80 transition-opacity"
+              >
+                <ChevronRight className="h-6 w-6 stroke-2" />
               </button>
-              <button onClick={togglePause} className="ml-2 text-[#002144]" aria-label={isPaused ? 'Play carousel' : 'Pause carousel'}>
-                {isPaused ? <Play className="h-5 w-5 opacity-80" /> : <Pause className="h-5 w-5 opacity-80" />}
+              <button 
+                onClick={togglePause} 
+                className="ml-2 text-[#002144]/60 hover:text-[#002144] transition-colors" 
+                aria-label={isPaused ? 'Play carousel' : 'Pause carousel'}
+              >
+                {isPaused ? (
+                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
+                    <Play className="h-4 w-4 ml-0.5 text-[#002144]/60" />
+                  </div>
+                ) : (
+                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
+                    <Pause className="h-4 w-4 text-[#002144]/60" />
+                  </div>
+                )}
               </button>
             </div>
           </div>

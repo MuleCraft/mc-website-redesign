@@ -1,89 +1,73 @@
-import { Linkedin, Facebook, Youtube, Instagram } from 'lucide-react';
+import { Linkedin, Facebook, Youtube, Twitter } from 'lucide-react';
 
 const navColumns = [
     {
-        title: 'WHY MULECRAFT',
+        title: 'PRODUCTS',
         links: [
-            { text: 'The MuleCraft Difference', href: '#' },
-            { text: 'MuleSoft Expertise', href: '#' },
-            { text: 'SnapLogic Services', href: '#' },
-            { text: 'Digibee Consulting', href: '#' },
-            { text: 'WSO2 Solutions', href: '#' },
-            { text: 'Platform Comparison', href: '#' },
-        ],
-    },
-    {
-        title: 'SERVICES',
-        links: [
-            { text: 'MuleSoft Consulting', href: '#' },
-            { text: 'Integration & Automation', href: '#' },
-            { text: 'API Management', href: '#' },
-            { text: 'Data Management', href: '#' },
-            { text: 'Cloud Integration', href: '#' },
-            { text: 'Legacy Modernization', href: '#' },
-        ],
-    },
-    {
-        title: 'RESOURCES',
-        links: [
-            { text: 'Resource Center', href: '#' },
+            { text: 'Community Anypoint Platform', href: '#' },
+            { text: 'MuleCraft Academy', href: '#' },
+            { text: 'Active Mq', href: '#' },
+            { text: 'Resources', href: '#' },
             { text: 'Blog', href: '#' },
-            { text: 'Case Studies', href: '#' },
+        ],
+    },
+    {
+        title: 'MULESOFT SERVICES',
+        links: [
+            { text: 'Mulesoft Expertise', href: '#' },
+            { text: 'Mulesoft Development', href: '#' },
+            { text: 'Mule-4 Migration', href: '#' },
+            { text: 'Mule B2B Integration', href: '#' },
+            { text: 'Ops & Maintenance', href: '#' },
+        ],
+    },
+    {
+        title: 'SALESFORCE SERVICES',
+        links: [
+            { text: 'Sales Cloud', href: '#' },
+            { text: 'Data & Org Migration', href: '#' },
+            { text: 'Managed Services', href: '#' },
+        ],
+    },
+    {
+        title: 'OTHER SERVICES',
+        links: [
+            { text: 'User Interface Design', href: '#' },
+            { text: 'Integrated Web Design', href: '#' },
+            { text: 'Snaplogic Strategies', href: '#' },
+            { text: 'Apigee API Solutions', href: '#' },
             { text: 'Training & Certification', href: '#' },
-            { text: 'Best Practices', href: '#' },
-            { text: 'Documentation', href: '#' },
         ],
     },
     {
         title: 'SUPPORT',
         links: [
-            { text: 'Help Center', href: '#' },
-            { text: 'Contact Support', href: '#' },
-            { text: 'Technical Support', href: '#' },
-            { text: 'Developer Resources', href: '#' },
-        ],
-    },
-    {
-        title: 'COMPANY',
-        links: [
-            { text: 'About MuleCraft', href: '#' },
-            { text: 'Our Team', href: '#' },
-            { text: 'Careers', href: '#' },
-            { text: 'News & Updates', href: '#' },
-            { text: 'Partners', href: '#' },
             { text: 'Contact Us', href: '#' },
-        ],
-    },
-    {
-        title: 'GET STARTED',
-        links: [
-            { text: 'Book a Demo', href: '#' },
-            { text: 'Watch Demo', href: '#' },
-            { text: 'Request Consultation', href: '#' },
-            { text: 'Free Assessment', href: '#' },
+            { text: 'Privacy Policy', href: '#' },
+            { text: 'Terms of Use', href: '#' },
         ],
     },
 ];
 
 const legalLinks = [
     { text: 'Privacy', href: '#' },
-    { text: 'Compliance', href: '#' },
-    { text: 'Terms of Service', href: '#' },
-    { text: 'Cookie Preference', href: '#' },
+    { text: 'Terms', href: '#' },
+    { text: 'Cookie', href: '#' },
+    { text: 'Settings', href: '#' },
 ];
 
 const socialLinks = [
-    { Icon: Linkedin, href: '#', name: 'LinkedIn' },
     { Icon: Facebook, href: '#', name: 'Facebook' },
+    { Icon: Twitter, href: '#', name: 'Twitter' },
+    { Icon: Linkedin, href: '#', name: 'LinkedIn' },
     { Icon: Youtube, href: '#', name: 'YouTube' },
-    { Icon: Instagram, href: '#', name: 'Instagram' },
 ];
 
 export const Footer = () => {
     return (
         <footer style={{ backgroundColor: '#002144' }} className="text-white font-sans">
             <div className="mx-auto max-w-[1400px] px-8 pt-12 pb-6 lg:pt-16 lg:pb-8">
-                <div className="mb-12 grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+                <div className="mb-12 grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                     {navColumns.map((column) => (
                         <div key={column.title}>
                             <h4 className="mb-6 text-sm font-bold uppercase tracking-widest text-white/60">
@@ -111,9 +95,6 @@ export const Footer = () => {
                                     className="h-10 w-auto"
                                 />
                             </a>
-                            <p className="max-w-xs text-sm text-white/60">
-                                Expert MuleSoft, SnapLogic, Digibee & WSO2 consulting for digital transformation.
-                            </p>
                         </div>
                         
                         <nav className="order-last lg:order-none">
@@ -129,6 +110,11 @@ export const Footer = () => {
                                     </li>
                                 ))}
                             </ul>
+                            <div className="mt-2 text-center">
+                                <a href="#" className="text-sm text-white/60 transition-colors hover:text-white">
+                                    Your Privacy Choices
+                                </a>
+                            </div>
                         </nav>
                         
                         <div className="flex shrink-0 items-center gap-6">
@@ -139,17 +125,10 @@ export const Footer = () => {
                                     </a>
                                 ))}
                             </div>
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <img
-                                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/G2-Review-Footer-1-1-110.svg"
-                                    alt="G2 Review Badge"
-                                    className="h-9 w-auto"
-                                />
-                            </a>
                         </div>
                     </div>
                     <div className="mt-8 text-center text-[13px] text-white/50 lg:mt-6 lg:text-left">
-                        © 2025 Copyright MuleCraft. All rights reserved.
+                        © Copyright 2023 Mulecraft All rights reserved.
                     </div>
                 </div>
             </div>

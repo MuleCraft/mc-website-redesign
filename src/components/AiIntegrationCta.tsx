@@ -2,8 +2,8 @@ export const AiIntegrationCta = () => {
   return (
     <section className="bg-white py-12 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#4C3FE0] to-[#7C3FE0]">
-          <div className="flex flex-col lg:flex-row lg:items-center px-6 py-12 lg:p-16">
+        <div className="relative overflow-hidden rounded-3xl" style={{ backgroundColor: '#002144' }}>
+          <div className="flex flex-col lg:flex-row lg:items-center px-6 py-8 lg:px-16 lg:py-10">
             <div className="lg:w-3/5 text-center lg:text-left">
               <h2 className="font-bold text-white text-3xl md:text-[40px] md:leading-[1.2] mb-6">
                 Fast-track integration and automation
@@ -23,7 +23,7 @@ export const AiIntegrationCta = () => {
             <div className="mt-10 lg:mt-0 lg:w-2/5 lg:pl-10">
               <div className="relative">
                 <img
-                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/images/Platform-Boomi-AI-Studio-Hero-Image-17.png"
+                  src="/aipageimage.webp"
                   alt="Abstract illustration of MuleCraft integration capabilities"
                   className="w-full h-auto"
                 />

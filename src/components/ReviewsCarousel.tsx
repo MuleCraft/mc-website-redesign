@@ -122,7 +122,7 @@ export const ReviewsCarousel = () => {
           <p className="mx-auto mb-4 max-w-[900px] text-lg text-[#666666] leading-[1.7]">
             Discover why more organizations trust MuleCraft for their integration needs across MuleSoft, SnapLogic, Digibee, and WSO2 platforms. Join satisfied clients and see how MuleCraft can transform your business.
           </p>
-          <p className="mb-12 text-base text-gray-600">
+          {/* <p className="mb-12 text-base text-gray-600">
             Read more reviews on{' '}
             <a href="#" className="text-[#6C4FE0] hover:underline">
               Gartner
@@ -131,17 +131,17 @@ export const ReviewsCarousel = () => {
             <a href="#" className="text-[#6C4FE0] hover:underline">
               G2
             </a>
-          </p>
+          </p> */}
         </div>
         <Carousel
           setApi={setApi}
           plugins={[autoplayPlugin.current]}
-          opts={{ align: "start", loop: true }}
+          opts={{ align: "center", loop: true }}
           className="w-full"
         >
-          <CarouselContent className="-ml-8">
+          <CarouselContent className="-ml-4 md:-ml-6">
             {reviews.map((review, index) => (
-              <CarouselItem key={index} className="basis-full pl-8 md:basis-1/2 lg:basis-1/3">
+              <CarouselItem key={index} className="basis-[90%] pl-4 md:basis-[50%] md:pl-6 lg:basis-[35%]">
                 <div className="flex h-full min-h-[320px] flex-col rounded-2xl border border-[#E5E5E5] bg-white p-8 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_6px_20px_rgba(0,0,0,0.1)]">
                   <h3 className="mb-4 text-lg font-bold leading-[1.4] text-[#1A1A2E]">
                     {review.title}

@@ -27,34 +27,24 @@ const slideData = [
 
 const logoData = [
   {
-    src: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/ServiceNow-Logo-Overlay-92.svg',
-    alt: 'ServiceNow Logo',
-    width: 140,
-    height: 36,
+    src: '/logodata1.webp',
+    alt: 'NVIDIA Logo',
   },
   {
-    src: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/cisco-logo-dark-93.svg',
-    alt: 'Cisco Logo',
-    width: 80,
-    height: 42,
+    src: '/logodata2.webp',
+    alt: 'TEKISTIC Logo',
   },
   {
-    src: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Moderna-Logo-94.svg',
-    alt: 'Moderna Logo',
-    width: 140,
-    height: 30,
+    src: '/logodata3.webp',
+    alt: 'Accionlabs Logo',
   },
   {
-    src: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Cargill_logo-95.svg',
-    alt: 'Cargill Logo',
-    width: 130,
-    height: 36,
+    src: '/logodata4.webp',
+    alt: 'Zensark Logo',
   },
   {
-    src: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Alaska_Airlines_logo-96.svg',
-    alt: 'Alaska Airlines Logo',
-    width: 160,
-    height: 18,
+    src: '/logodata5.webp',
+    alt: 'Technoladders Logo',
   },
 ];
 
@@ -90,7 +80,7 @@ const productsData = {
     { text: 'MuleSoftLP', href: 'https://mulesoft.dev/' },
     { text: 'SnapLogic', href: 'https://snaplogic.playground.mulecraft.in/' },
     { text: 'RAMLify Flow Agent', href: 'https://ramlify-flow-agent.lovable.app/' },
-    { text: 'Goose', href: '#' },
+    { text: 'Goose', href: 'https://goosed.in/' },
   ],
   mulesoft: [
     { text: 'Community Anypoint Platform', href: '#' },
@@ -102,7 +92,7 @@ const productsData = {
     { text: 'SnapLogic', href: 'https://snaplogic.playground.mulecraft.in/' },
     { text: 'RAMLify Flow Agent', href: 'https://ramlify-flow-agent.lovable.app/' },
     { text: 'AnypointLP', href: '#' },
-    { text: 'Goose', href: '#' },
+    { text: 'Goose', href: 'https://goosed.in/' },
     { text: 'Mule Migration Nexus', href: '#' },
     { text: 'DataWeave Task Generator', href: '#' },
     { text: 'Datadog Integration Automation', href: '#' },
@@ -179,6 +169,34 @@ export const HeroCarousel = () => {
         }
         .float-animation {
           animation: float 6s ease-in-out infinite;
+        }
+        @keyframes scroll-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .logo-scroll-container {
+          width: 100%;
+          max-width: 1000px;
+          margin: 0 auto;
+          overflow: hidden;
+          position: relative;
+        }
+        .logo-scroll {
+          display: flex;
+          width: max-content;
+          animation: scroll-left 30s linear infinite;
+          will-change: transform;
+        }
+        .logo-scroll:hover {
+          animation-play-state: paused;
+        }
+        .logo-item {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 180px;
+          max-width: 200px;
         }
       `}</style>
       <div className="bg-white">
@@ -525,7 +543,7 @@ export const HeroCarousel = () => {
                     href="#"
                     className="inline-block whitespace-nowrap rounded-full border-2 border-[#002144] bg-transparent px-8 py-3.5 text-base font-semibold text-[#002144] transition-colors hover:bg-[#002144]/10"
                   >
-                    Start free trial
+                    Contact
                   </a>
                 </div>
               </div>
@@ -569,23 +587,8 @@ export const HeroCarousel = () => {
               >
                 <ChevronRight className="h-5 w-5 stroke-2" />
               </button>
-              <button 
-                onClick={togglePause} 
-                className="ml-2 text-[#002144]/60 hover:text-[#002144] transition-colors" 
-                aria-label={isPaused ? 'Play carousel' : 'Pause carousel'}
-              >
-                {isPaused ? (
-                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
-                    <Play className="h-4 w-4 ml-0.5 text-[#002144]/60" />
-                  </div>
-                ) : (
-                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
-                    <Pause className="h-4 w-4 text-[#002144]/60" />
-                  </div>
-                )}
-              </button>
             </div>
-            
+
             {/* Mobile Controls */}
             <div className="mt-12 flex items-center justify-center gap-4 lg:hidden">
               <button 
@@ -614,36 +617,33 @@ export const HeroCarousel = () => {
               >
                 <ChevronRight className="h-6 w-6 stroke-2" />
               </button>
-              <button 
-                onClick={togglePause} 
-                className="ml-2 text-[#002144]/60 hover:text-[#002144] transition-colors" 
-                aria-label={isPaused ? 'Play carousel' : 'Pause carousel'}
-              >
-                {isPaused ? (
-                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
-                    <Play className="h-4 w-4 ml-0.5 text-[#002144]/60" />
-                  </div>
-                ) : (
-                  <div className="h-8 w-8 rounded-full border-2 border-[#002144]/60 flex items-center justify-center hover:border-[#002144] transition-colors">
-                    <Pause className="h-4 w-4 text-[#002144]/60" />
-                  </div>
-                )}
-              </button>
             </div>
           </div>
         </section>
-        <div className="bg-white">
-          <div className="container mx-auto flex h-auto min-h-[80px] max-w-[1240px] flex-wrap items-center justify-center gap-x-8 gap-y-4 px-6 py-4 md:h-[100px] md:flex-nowrap md:justify-around md:py-0">
-            {logoData.map((logo) => (
-              <img
-                key={logo.alt}
-                src={logo.src}
-                alt={logo.alt}
-                width={logo.width}
-                height={logo.height}
-                className="h-auto max-h-[36px] w-auto max-w-[180px] object-contain grayscale transition duration-300 hover:grayscale-0"
-              />
-            ))}
+        <div className="bg-white overflow-hidden">
+          <div className="logo-scroll-container">
+            <div className="logo-scroll items-center min-h-[100px] md:min-h-[120px] py-6" style={{ gap: '2.5rem' }}>
+              {/* First set of logos */}
+              {logoData.map((logo, index) => (
+                <div key={`logo-1-${index}`} className="logo-item">
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="h-auto max-h-[60px] md:max-h-[70px] w-auto max-w-[180px] md:max-w-[200px] object-contain grayscale transition duration-300 hover:grayscale-0"
+                  />
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {logoData.map((logo, index) => (
+                <div key={`logo-2-${index}`} className="logo-item">
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="h-auto max-h-[60px] md:max-h-[70px] w-auto max-w-[180px] md:max-w-[200px] object-contain grayscale transition duration-300 hover:grayscale-0"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

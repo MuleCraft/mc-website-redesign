@@ -13,7 +13,7 @@ export const FinalCta = () => {
             Connect everything to achieve anything.™
           </h2>
           <p className="text-white/90 text-[1.125rem] lg:text-[1.25rem] leading-[1.5] mb-8">
-            Join 25K+ organizations already unlocking possibility with Boomi.
+            Join 100+ organizations already unlocking possibility with MuleCraft's MuleSoft, SnapLogic, Digibee, and WSO2 expertise.
           </p>
           
           <a 
@@ -37,7 +37,7 @@ export const FinalCta = () => {
             </span>
           </a>
           <p className="text-white/80 text-base mt-6">
-            The #1 intelligent iPaaS for digital transformation.
+            Expert consulting for MuleSoft, SnapLogic, Digibee, and WSO2 integration platforms.
           </p>
         </div>
       </div>

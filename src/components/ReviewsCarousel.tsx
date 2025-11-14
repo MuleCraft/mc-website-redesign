@@ -22,58 +22,58 @@ type Review = {
 
 const reviews: Review[] = [
   {
-    title: "Boomi Developer Review",
-    excerpt: "It is one of the best products compared to other integration tools, offering a more user friendly interface and easy to understand shapes. It also provides multiple options to connect with various trade partners.",
-    reviewerName: "Ganesan C",
+    title: "MuleCraft MuleSoft Implementation Excellence",
+    excerpt: "MuleCraft's expertise with MuleSoft has transformed our integration capabilities. Their team delivered a robust, scalable solution that connected our Salesforce, SAP, and NetSuite systems seamlessly. The implementation was smooth and their support exceptional.",
+    reviewerName: "Sarah Johnson",
     platform: "g2",
     hasPhoto: true,
   },
   {
-    title: "Boomi is a power house of an iPaaS",
-    excerpt: "Boomi is an Integrated platform that i have used many times in the last 10 years, and implemented twice. It is a great tool that can be used by anyone with a fair degree of technical knowledge as it allows for building data processes without needing to code.",
-    reviewerName: "Technology Director",
+    title: "Outstanding SnapLogic Integration Services",
+    excerpt: "MuleCraft helped us leverage SnapLogic for our data integration needs. Their deep understanding of the platform and best practices enabled us to reduce integration time by 60% while improving data quality across our enterprise systems.",
+    reviewerName: "Michael Chen",
     platform: "gartner",
     hasPhoto: false,
   },
   {
-    title: "The best integration platform",
-    excerpt: "Boomi is one of the very light weight, easy to learn Integration platform which is just drag and drop. All the SDLC steps right from building to deployment are there in a single platform and it is very easy to use.",
-    reviewerName: "Manikya Aravinda",
+    title: "Digibee Platform Expertise Delivers Results",
+    excerpt: "Working with MuleCraft on our Digibee implementation was a game-changer. They provided expert guidance on API management and workflow automation, helping us modernize our legacy systems and accelerate our digital transformation journey.",
+    reviewerName: "David Martinez",
     platform: "g2",
     hasPhoto: true,
   },
   {
-    title: "Leading IPaaS for seamless, user-friendly integration",
-    excerpt: "The main reason is that Boomi is a powerful integratino plataform that excels at connecting applications and automating workflows across diverse environments. It statnds out due to its user-friendly interface and robust scalability.",
-    reviewerName: "Solutions Consultant",
+    title: "WSO2 API Management Excellence",
+    excerpt: "MuleCraft's WSO2 consulting services helped us design, secure, and manage our APIs effectively. Their team's technical expertise and attention to detail ensured we had a scalable API strategy that supports our business growth.",
+    reviewerName: "Jennifer Williams",
     platform: "g2",
     hasPhoto: false,
   },
   {
-    title: "Best integration platform",
-    excerpt: "Connect everything to everything without any platform influence",
-    reviewerName: "Rishi Lad",
+    title: "Comprehensive Integration Platform Support",
+    excerpt: "MuleCraft provides exceptional consulting across MuleSoft, SnapLogic, Digibee, and WSO2. Their platform-agnostic approach helped us choose the right solution for each use case, resulting in significant cost savings and improved efficiency.",
+    reviewerName: "Robert Anderson",
     platform: "g2",
     hasPhoto: true,
   },
   {
-    title: "Boomi's Configurable Functionality Impresses",
-    excerpt: "I am impressed with the functionality within Boomi. Processes that used to require custom programming are now configurable.",
-    reviewerName: "Solutions Consultant",
+    title: "MuleSoft Anypoint Platform Mastery",
+    excerpt: "The MuleCraft team's deep knowledge of MuleSoft Anypoint Platform enabled us to build complex integrations quickly. Their best practices and governance frameworks have been instrumental in our success.",
+    reviewerName: "Lisa Thompson",
     platform: "gartner",
     hasPhoto: false,
   },
   {
-    title: "Boomi automates complex & impactful services",
-    excerpt: "Boomi has allowed me to bring value to my company by automating Ecommerce, DTC, B2B processes and data flow at TKG. Integration & Automation platform has been crucial to have data flow to the right places at the right time, with listeners providing near realtime service for our web orders coming from Salesforce...",
-    reviewerName: "Sung Kim",
+    title: "End-to-End Integration Solutions",
+    excerpt: "MuleCraft delivered a complete integration solution using MuleSoft that connected our e-commerce, ERP, and CRM systems. Their expertise in API-led connectivity and reusable components accelerated our time-to-market significantly.",
+    reviewerName: "James Wilson",
     platform: "g2",
     hasPhoto: true,
   },
   {
-    title: "Nearly Zero Issues with Boomi Product Functionality",
-    excerpt: "Exceptional product support and account contact person. Never seen such dedication.",
-    reviewerName: "IT Integration Manager",
+    title: "Exceptional Technical Support and Consulting",
+    excerpt: "MuleCraft's support team is outstanding. They provided expert guidance throughout our MuleSoft implementation and continue to help us optimize our integrations. Their dedication to client success is unmatched.",
+    reviewerName: "IT Integration Director",
     platform: "gartner",
     hasPhoto: false,
   }
@@ -117,10 +117,10 @@ export const ReviewsCarousel = () => {
       <div className="mx-auto max-w-[1400px] px-8">
         <div className="text-center">
           <h2 className="mb-4 text-3xl font-bold text-[#1A1A2E] lg:text-[40px] lg:leading-tight">
-            #1 trusted choice for integration and automation
+            #1 trusted choice for MuleSoft, SnapLogic, Digibee & WSO2 consulting
           </h2>
           <p className="mx-auto mb-4 max-w-[900px] text-lg text-[#666666] leading-[1.7]">
-            Discover why more customers choose Boomi than any other integration & automation solution. Join satisfied users and see how Boomi can transform your business.
+            Discover why more organizations trust MuleCraft for their integration needs across MuleSoft, SnapLogic, Digibee, and WSO2 platforms. Join satisfied clients and see how MuleCraft can transform your business.
           </p>
           <p className="mb-12 text-base text-gray-600">
             Read more reviews on{' '}

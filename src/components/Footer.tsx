@@ -1,27 +1,26 @@
-import { Link } from 'react-router-dom';
 import { Linkedin, Facebook, Youtube, Instagram } from 'lucide-react';
 
 const navColumns = [
     {
-        title: 'WHY BOOMI',
+        title: 'WHY MULECRAFT',
         links: [
-            { text: 'The Boomi Difference', href: '#' },
-            { text: 'What is iPaaS?', href: '#' },
-            { text: 'Pricing & Editions', href: '#' },
-            { text: 'Boomi vs Mulesoft', href: '#' },
-            { text: 'Boomi vs Workato', href: '#' },
-            { text: 'Migrate from TIBCO to Boomi', href: '#' },
+            { text: 'The MuleCraft Difference', href: '#' },
+            { text: 'MuleSoft Expertise', href: '#' },
+            { text: 'SnapLogic Services', href: '#' },
+            { text: 'Digibee Consulting', href: '#' },
+            { text: 'WSO2 Solutions', href: '#' },
+            { text: 'Platform Comparison', href: '#' },
         ],
     },
     {
-        title: 'CAPABILITIES',
+        title: 'SERVICES',
         links: [
-            { text: 'Boomi Platform Overview', href: '#' },
+            { text: 'MuleSoft Consulting', href: '#' },
             { text: 'Integration & Automation', href: '#' },
-            { text: 'AI Management', href: '#' },
-            { text: 'Data Management', href: '#' },
             { text: 'API Management', href: '#' },
-            { text: 'Product Updates', href: '#' },
+            { text: 'Data Management', href: '#' },
+            { text: 'Cloud Integration', href: '#' },
+            { text: 'Legacy Modernization', href: '#' },
         ],
     },
     {
@@ -29,39 +28,39 @@ const navColumns = [
         links: [
             { text: 'Resource Center', href: '#' },
             { text: 'Blog', href: '#' },
-            { text: 'Events & Webinars', href: '#' },
-            { text: 'Training', href: '#' },
-            { text: 'Community', href: '#' },
+            { text: 'Case Studies', href: '#' },
+            { text: 'Training & Certification', href: '#' },
+            { text: 'Best Practices', href: '#' },
             { text: 'Documentation', href: '#' },
         ],
     },
     {
         title: 'SUPPORT',
         links: [
-            { text: 'Help Docs', href: '#' },
-            { text: 'Submit a Ticket', href: '#' },
-            { text: 'System Status', href: '#' },
-            { text: 'Developer Docs', href: '#' },
+            { text: 'Help Center', href: '#' },
+            { text: 'Contact Support', href: '#' },
+            { text: 'Technical Support', href: '#' },
+            { text: 'Developer Resources', href: '#' },
         ],
     },
     {
         title: 'COMPANY',
         links: [
-            { text: 'About', href: '#' },
+            { text: 'About MuleCraft', href: '#' },
+            { text: 'Our Team', href: '#' },
             { text: 'Careers', href: '#' },
-            { text: 'Team', href: '#' },
-            { text: 'Newsroom', href: '#' },
-            { text: 'Innovation', href: '#' },
-            { text: 'Contact us', href: '#' },
+            { text: 'News & Updates', href: '#' },
+            { text: 'Partners', href: '#' },
+            { text: 'Contact Us', href: '#' },
         ],
     },
     {
         title: 'GET STARTED',
         links: [
-            { text: 'Start Free Trial', href: '#' },
+            { text: 'Book a Demo', href: '#' },
             { text: 'Watch Demo', href: '#' },
-            { text: 'Request a Demo', href: '#' },
-            { text: 'Explore Marketplace', href: '#' },
+            { text: 'Request Consultation', href: '#' },
+            { text: 'Free Assessment', href: '#' },
         ],
     },
 ];
@@ -74,10 +73,10 @@ const legalLinks = [
 ];
 
 const socialLinks = [
-    { Icon: Linkedin, href: 'https://www.linkedin.com/company/boomi-inc', name: 'LinkedIn' },
-    { Icon: Facebook, href: 'https://www.facebook.com/Boomi/', name: 'Facebook' },
-    { Icon: Youtube, href: 'https://www.youtube.com/channel/UC-nL33a5I3a_CEh22iTuXqA', name: 'YouTube' },
-    { Icon: Instagram, href: 'https://www.instagram.com/boomi_inc/', name: 'Instagram' },
+    { Icon: Linkedin, href: '#', name: 'LinkedIn' },
+    { Icon: Facebook, href: '#', name: 'Facebook' },
+    { Icon: Youtube, href: '#', name: 'YouTube' },
+    { Icon: Instagram, href: '#', name: 'Instagram' },
 ];
 
 export const Footer = () => {
@@ -93,9 +92,9 @@ export const Footer = () => {
                             <ul className="space-y-0.5">
                                 {column.links.map((link) => (
                                     <li key={link.text}>
-                                        <Link to={link.href} className="text-[15px] leading-loose text-white/80 transition-colors duration-200 hover:text-white hover:underline">
+                                        <a href={link.href} className="text-[15px] leading-loose text-white/80 transition-colors duration-200 hover:text-white hover:underline">
                                             {link.text}
-                                        </Link>
+                                        </a>
                                     </li>
                                 ))}
                             </ul>
@@ -105,15 +104,15 @@ export const Footer = () => {
                 <div className="border-t border-white/20 pt-8">
                     <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between">
                         <div className="flex flex-col items-center gap-4 text-center lg:items-start lg:text-left">
-                            <Link to="/">
+                            <a href="/">
                                 <img
-                                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Boomi-Logo-White-Footer-109.svg"
-                                    alt="Boomi Logo"
+                                    src="/mulecraftlogo.svg"
+                                    alt="MuleCraft Logo"
                                     className="h-10 w-auto"
                                 />
-                            </Link>
+                            </a>
                             <p className="max-w-xs text-sm text-white/60">
-                                The #1 intelligent iPaaS for digital transformation.
+                                Expert MuleSoft, SnapLogic, Digibee & WSO2 consulting for digital transformation.
                             </p>
                         </div>
                         
@@ -121,9 +120,9 @@ export const Footer = () => {
                             <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2 lg:gap-x-6">
                                 {legalLinks.map((link, index) => (
                                     <li key={link.text} className="flex items-center">
-                                        <Link to={link.href} className="text-sm text-white/60 transition-colors hover:text-white">
+                                        <a href={link.href} className="text-sm text-white/60 transition-colors hover:text-white">
                                             {link.text}
-                                        </Link>
+                                        </a>
                                         {index < legalLinks.length - 1 && (
                                             <span className="ml-4 select-none text-white/60 lg:ml-6" aria-hidden="true">|</span>
                                         )}
@@ -150,7 +149,7 @@ export const Footer = () => {
                         </div>
                     </div>
                     <div className="mt-8 text-center text-[13px] text-white/50 lg:mt-6 lg:text-left">
-                        © 2025 Copyright Boomi, LP. All rights reserved.
+                        © 2025 Copyright MuleCraft. All rights reserved.
                     </div>
                 </div>
             </div>

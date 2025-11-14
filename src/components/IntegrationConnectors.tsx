@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 const connectors = [
   { name: 'Salesforce', src: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Salesforce-Menu-Connector-Cards-Logo-Mark-31.svg', alt: 'Salesforce logo' },
   { name: 'SAP', src: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/SAP-Menu-Connector-Cards-Logo-Mark-29.svg', alt: 'SAP logo' },
@@ -33,15 +31,15 @@ export const IntegrationConnectors = () => {
           <div className="lg:flex lg:items-center lg:justify-between lg:gap-x-20">
             <div className="flex-shrink-0 lg:w-2/5 text-center lg:text-left z-10 relative">
               <h2 className="text-[28px] lg:text-[32px] font-bold text-white leading-[1.3] max-w-[600px] mx-auto lg:mx-0">
-                Effortlessly integrate all your apps and data sources
+                Effortlessly integrate all your apps and data sources with MuleSoft, SnapLogic, Digibee, and WSO2
               </h2>
               <div className="mt-8">
-                <Link
-                  to="/connectors"
+                <a
+                  href="#"
                   className="inline-block bg-white text-[#2B1B6D] font-semibold px-8 py-[14px] rounded-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
                 >
                   Explore all
-                </Link>
+                </a>
               </div>
             </div>
             <div className="flex-grow lg:w-3/5 mt-16 lg:mt-0 relative">

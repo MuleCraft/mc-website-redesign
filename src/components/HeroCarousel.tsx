@@ -509,9 +509,23 @@ export const HeroCarousel = () => {
           )}
         </nav>
 
-        <section className="relative overflow-hidden bg-gradient-to-r from-[#E6F2F8] via-[#D4E8F2] to-[#C8E3F0] text-[#002144] [border-bottom-left-radius:50%_100px] [border-bottom-right-radius:50%_100px] pt-16">
+        <section className="relative overflow-hidden text-[#002144] [border-bottom-left-radius:50%_150px] [border-bottom-right-radius:50%_150px] pt-16">
+          {/* Background Video with Blur */}
+          <div className="absolute inset-0 z-0">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover blur-[2px] scale-110 brightness-75"
+            >
+              <source src="/herovideo.mp4" type="video/mp4" />
+            </video>
+            {/* Overlay for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E6F2F8]/10 via-[#D4E8F2]/8 to-[#C8E3F0]/10"></div>
+          </div>
           
-          <div className="container relative mx-auto max-w-[1400px] px-6 py-12 md:py-16 lg:py-20 lg:pl-16 lg:pr-16">
+          <div className="container relative z-10 mx-auto max-w-[1400px] px-6 py-12 md:py-16 lg:py-20 lg:pl-16 lg:pr-16">
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-12">
               <div className="relative z-10 flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-4">
                 <div className="relative min-h-[180px] md:min-h-[160px] lg:min-h-[200px] mb-8 overflow-hidden">

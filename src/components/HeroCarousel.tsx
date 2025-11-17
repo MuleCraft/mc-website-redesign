@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play, Menu, ChevronDown, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 
 const slideData = [
@@ -57,50 +58,50 @@ const AUTOPLAY_INTERVAL = 5000;
 
 const servicesData = {
   popular: [
-    { text: 'Mule 4 Migration', href: '#' },
-    { text: 'Mulesoft Development', href: '#' },
-    { text: 'Snaplogic Strategies', href: '#' },
+    { text: 'Mule 4 Migration', href: '/mule-4-migration' },
+    { text: 'Mulesoft Development', href: '/mulesoft-development' },
+    { text: 'Snaplogic Strategies', href: '/snaplogic-strategies' },
   ],
   mulesoft: [
-    { text: 'Mulesoft Development', href: '#' },
-    { text: 'Mule 4 Migration', href: '#' },
-    { text: 'Mule B2B Integration', href: '#' },
-    { text: 'Ops & Maintenance', href: '#' },
+    { text: 'Mulesoft Expertise', href: '/mulesoft-expertise' },
+    { text: 'Mulesoft Development', href: '/mulesoft-development' },
+    { text: 'Mule 4 Migration', href: '/mule-4-migration' },
+    { text: 'Mule B2B Integration', href: '/mule-b2b-integration' },
+    { text: 'Ops & Maintenance', href: '/ops-maintenance' },
   ],
   salesforce: [
-    { text: 'Sales Cloud', href: '#' },
-    { text: 'Data & Org Migration', href: '#' },
-    { text: 'Managed Services', href: '#' },
+    { text: 'Sales Cloud', href: '/sales-cloud' },
+    { text: 'Data & Org Migration', href: '/data-org-migration' },
+    { text: 'Managed Services', href: '/managed-services' },
   ],
   other: [
-    { text: 'User Interface Design', href: '#' },
-    { text: 'Integrated Web Design', href: '#' },
-    { text: 'Snaplogic Strategies', href: '#' },
-    { text: 'Apigee API Solutions', href: '#' },
+    { text: 'User Interface Design', href: '/ui-design' },
+    { text: 'Integrated Web Design', href: '/integrated-web-design' },
+    { text: 'Snaplogic Strategies', href: '/snaplogic-strategies' },
+    { text: 'Apigee API Solutions', href: '/apigee-api-solutions' },
   ],
 };
 
 const productsData = {
   recentlyLaunched: [
     { text: 'MuleSoftLP', href: 'https://mulesoft.dev/' },
-    { text: 'SnapLogic', href: 'https://snaplogic.playground.mulecraft.in/' },
+    { text: 'SnapMapper', href: 'https://snaplogic.playground.mulecraft.in/' },
     { text: 'RAMLify Flow Agent', href: 'https://ramlify-flow-agent.lovable.app/' },
     { text: 'Goose', href: 'https://goosed.in/' },
   ],
   mulesoft: [
-    { text: 'Community Anypoint Platform', href: '#' },
-    { text: 'Active Mq', href: '#' },
+    { text: 'Community Anypoint Platform', href: 'https://community.platform.mulecraft.in/' },
     { text: 'MuleSoftLP', href: 'https://mulesoft.dev/' },
-    { text: 'MuleCraft Academy', href: '#' },
+    { text: 'MuleCraft Academy', href: 'https://training.mulecraft.in/' },
   ],
   other: [
-    { text: 'SnapLogic', href: 'https://snaplogic.playground.mulecraft.in/' },
+    { text: 'SnapMapper', href: 'https://snaplogic.playground.mulecraft.in/' },
     { text: 'RAMLify Flow Agent', href: 'https://ramlify-flow-agent.lovable.app/' },
-    { text: 'AnypointLP', href: '#' },
+    { text: 'AnypointLP', href: 'https://anypointlp-secondary.lovable.app/' },
     { text: 'Goose', href: 'https://goosed.in/' },
-    { text: 'Mule Migration Nexus', href: '#' },
-    { text: 'DataWeave Task Generator', href: '#' },
-    { text: 'Datadog Integration Automation', href: '#' },
+    { text: 'Mule Migration Nexus', href: 'https://mule-migration-nexus.lovable.app/#' },
+    { text: 'DataWeave Task Generator', href: 'https://mule-weave-wizard.lovable.app/' },
+    { text: 'Datadog Integration Automation', href: 'https://mule-otel-sight.lovable.app/' },
   ],
 };
 
@@ -337,9 +338,15 @@ export const HeroCarousel = () => {
                           <ul className="space-y-3">
                             {servicesData.popular.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
-                                  {item.text}
-                                </a>
+                                {item.href.startsWith('/') ? (
+                                  <Link to={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </Link>
+                                ) : (
+                                  <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </a>
+                                )}
                               </li>
                             ))}
                           </ul>
@@ -350,9 +357,15 @@ export const HeroCarousel = () => {
                           <ul className="space-y-3">
                             {servicesData.mulesoft.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
-                                  {item.text}
-                                </a>
+                                {item.href.startsWith('/') ? (
+                                  <Link to={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </Link>
+                                ) : (
+                                  <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </a>
+                                )}
                               </li>
                             ))}
                           </ul>
@@ -363,9 +376,15 @@ export const HeroCarousel = () => {
                           <ul className="space-y-3">
                             {servicesData.salesforce.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
-                                  {item.text}
-                                </a>
+                                {item.href.startsWith('/') ? (
+                                  <Link to={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </Link>
+                                ) : (
+                                  <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </a>
+                                )}
                               </li>
                             ))}
                           </ul>
@@ -376,9 +395,15 @@ export const HeroCarousel = () => {
                           <ul className="space-y-3">
                             {servicesData.other.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
-                                  {item.text}
-                                </a>
+                                {item.href.startsWith('/') ? (
+                                  <Link to={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </Link>
+                                ) : (
+                                  <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
+                                    {item.text}
+                                  </a>
+                                )}
                               </li>
                             ))}
                           </ul>
@@ -515,35 +540,39 @@ export const HeroCarousel = () => {
                   )}
                 </div>
 
-                <a 
-                  href="#about" 
+                <Link 
+                  to="/about" 
                   className="nav-link text-[15px] font-medium transition-colors relative text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent group"
                 >
                   About
                   <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                </a>
+                </Link>
                 <a 
-                  href="#resources" 
+                  href="https://blogs.mulecraft.in/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="nav-link text-[15px] font-medium transition-colors relative text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent group"
                 >
                   Resources
                   <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </a>
-                <a 
-                  href="#contact" 
+                <Link 
+                  to="/contact" 
                   className="nav-link text-[15px] font-medium transition-colors relative text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent group"
                 >
                   Contact Us
                   <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                </a>
+                </Link>
               </div>
               
               <div className="flex items-center gap-3">
-                <Button className={`hidden lg:flex font-semibold ${
-                  isScrolled ? 'bg-white text-black hover:bg-white/90' : 'bg-white text-black hover:bg-white/90'
-                }`}>
-                  Book a Demo
-                </Button>
+                <Link to="/contact">
+                  <Button className={`hidden lg:flex font-semibold ${
+                    isScrolled ? 'bg-white text-black hover:bg-white/90' : 'bg-white text-black hover:bg-white/90'
+                  }`}>
+                    Book a Demo
+                  </Button>
+                </Link>
                 <Button 
                   variant="ghost" 
                   size="icon" 
@@ -623,11 +652,13 @@ export const HeroCarousel = () => {
                     </div>
                   )}
                 </div>
-                <a href="#about" className="block text-white font-medium py-2">About</a>
-                <a href="#resources" className="block text-white font-medium py-2">Resources</a>
-                <a href="#contact" className="block text-white font-medium py-2">Contact Us</a>
+                <Link to="/about" className="block text-white font-medium py-2">About</Link>
+                <a href="https://blogs.mulecraft.in/" target="_blank" rel="noopener noreferrer" className="block text-white font-medium py-2">Resources</a>
+                <Link to="/contact" className="block text-white font-medium py-2">Contact Us</Link>
                 <div className="pt-4 border-t border-white/10">
-                  <Button className="w-full bg-white text-black">Book a Demo</Button>
+                  <Link to="/contact" className="block">
+                    <Button className="w-full bg-white text-black">Book a Demo</Button>
+                  </Link>
                 </div>
               </div>
             </div>

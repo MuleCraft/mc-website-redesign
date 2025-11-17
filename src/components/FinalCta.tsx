@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const FinalCta = () => {
   return (
     <section className="relative bg-black py-12 sm:py-16 overflow-hidden">
@@ -30,12 +32,12 @@ export const FinalCta = () => {
             >
               Watch demo
             </a>
-            <a
-              href="#"
+            <Link
+              to="/contact"
               className="inline-flex items-center justify-center rounded-full border-2 border-white/30 bg-transparent px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:border-white/50 hover:bg-white/10 hover:scale-105 w-full sm:w-auto"
             >
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       </div>

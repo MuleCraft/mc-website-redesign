@@ -1,110 +1,77 @@
-import { Linkedin, Twitter, Github } from 'lucide-react';
+import { Linkedin, Twitter, Facebook, Youtube } from 'lucide-react';
 
 const navColumns = [
     {
-        title: 'DEVELOPERS',
+        title: 'PRODUCTS',
         links: [
-            { text: 'Developer Hub', href: '#' },
-            { text: 'Code Samples and Guides', href: '#' },
-            { text: 'Blog posts', href: '#' },
+            { text: 'Community Anypoint Platform', href: '#' },
             { text: 'MuleCraft Academy', href: '#' },
-            { text: 'Resources', href: '#' },
+            { text: 'Active Mq', href: '#' },
         ],
     },
     {
-        title: 'DOCUMENTATION',
+        title: 'MULESOFT SERVICES',
         links: [
-            { text: 'Articles', href: '#' },
-            { text: 'Quickstarts', href: '#' },
-            { text: 'APIs', href: '#' },
-            { text: 'SDK Libraries', href: '#' },
-            { text: 'Changelog', href: '#' },
-            { text: 'Blog', href: '#' },
-            { text: 'Reports', href: '#' },
-            { text: 'Webinars', href: '#' },
-        ],
-    },
-    {
-        title: 'SUPPORT CENTER',
-        links: [
-            { text: 'Community', href: '#' },
-            { text: 'Support', href: '#' },
-            { text: 'Help', href: '#' },
-            { text: 'FAQs', href: '#' },
-            { text: 'Contact Us', href: '#' },
-        ],
-    },
-    {
-        title: 'COMPANY',
-        links: [
-            { text: 'Our Customers', href: '#' },
-            { text: 'Compliance - Ensuring privacy and security', href: '#' },
-            { text: 'Partners', href: '#' },
-            { text: 'Careers', href: '#' },
-            { text: 'About us', href: '#' },
-        ],
-    },
-    {
-        title: 'GET INVOLVED',
-        links: [
-            { text: 'Events', href: '#' },
-            { text: 'MuleCraft Research Program', href: '#' },
-        ],
-    },
-    {
-        title: 'LEARNING',
-        links: [
-            { text: 'Learn', href: '#' },
-            { text: 'Intro to Integration Platforms', href: '#' },
-            { text: 'Blog', href: '#' },
-        ],
-    },
-    {
-        title: 'PLATFORM',
-        links: [
-            { text: 'MuleSoft Services', href: '#' },
-            { text: 'SnapLogic Integration', href: '#' },
-            { text: 'Digibee Solutions', href: '#' },
-            { text: 'WSO2 API Management', href: '#' },
-            { text: 'Access Management', href: '#' },
-            { text: 'Security', href: '#' },
-            { text: 'Cloud deployments', href: '#' },
-            { text: 'Fine-Grained Authorization', href: '#' },
-        ],
-    },
-    {
-        title: 'FEATURES',
-        links: [
-            { text: 'Mule 4 Migration', href: '#' },
+            { text: 'Mulesoft Expertise', href: '#' },
+            { text: 'Mulesoft Development', href: '#' },
+            { text: 'Mule-4 Migration', href: '#' },
             { text: 'Mule B2B Integration', href: '#' },
-            { text: 'Salesforce Integration', href: '#' },
-            { text: 'API Development', href: '#' },
-            { text: 'Machine to Machine', href: '#' },
             { text: 'Ops & Maintenance', href: '#' },
+        ],
+    },
+    {
+        title: 'SALESFORCE SERVICES',
+        links: [
+            { text: 'Sales Cloud', href: '#' },
+            { text: 'Data & Org Migration', href: '#' },
             { text: 'Managed Services', href: '#' },
+        ],
+    },
+    {
+        title: 'OTHER SERVICES',
+        links: [
+            { text: 'User Interface Design', href: '#' },
+            { text: 'Integrated Web Design', href: '#' },
+            { text: 'Snaplogic Strategies', href: '#' },
+            { text: 'Apigee API Solutions', href: '#' },
             { text: 'Training & Certification', href: '#' },
+        ],
+    },
+    {
+        title: 'SUPPORT',
+        links: [
+            { text: 'Contact Us', href: '#' },
+            { text: 'Privacy Policy', href: '#' },
+            { text: 'Terms of Use', href: '#' },
+        ],
+    },
+    {
+        title: 'RESOURCES',
+        links: [
+            { text: 'Blog', href: '#' },
         ],
     },
 ];
 
 const legalLinks = [
-    { text: 'Status', href: '#' },
-    { text: 'Legal', href: '#' },
     { text: 'Privacy', href: '#' },
     { text: 'Terms', href: '#' },
+    { text: 'Cookie', href: '#' },
+    { text: 'Settings', href: '#' },
 ];
 
 const socialLinks = [
+    { Icon: Facebook, href: '#', name: 'Facebook' },
     { Icon: Twitter, href: '#', name: 'Twitter' },
     { Icon: Linkedin, href: '#', name: 'LinkedIn' },
-    { Icon: Github, href: '#', name: 'GitHub' },
+    { Icon: Youtube, href: '#', name: 'YouTube' },
 ];
 
 export const Footer = () => {
     return (
         <footer className="bg-black text-white font-sans">
             <div className="mx-auto max-w-[1400px] px-8 pt-16 pb-8 lg:pt-20 lg:pb-12">
-                <div className="mb-16 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+                <div className="mb-16 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                     {navColumns.map((column) => (
                         <div key={column.title}>
                             <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/60">
@@ -123,39 +90,43 @@ export const Footer = () => {
                     ))}
                 </div>
                 
-                {/* Social Media Icons */}
-                <div className="mb-8 flex items-center gap-6">
-                    {socialLinks.map(({ Icon, href, name }) => (
-                        <a key={name} href={href} aria-label={name} target="_blank" rel="noopener noreferrer" className="text-white/60 transition-all hover:scale-110 hover:text-white">
-                            <Icon className="h-5 w-5" />
-                        </a>
-                    ))}
-                </div>
-                
                 {/* Bottom Footer Bar */}
                 <div className="border-t border-white/20 pt-6">
-                    <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
-                        <div className="text-sm text-white/50">
-                            © 2025 MuleCraft, Inc. All Rights Reserved.
-                        </div>
-                        <nav>
-                            <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 lg:gap-x-6">
-                                {legalLinks.map((link, index) => (
-                                    <li key={link.text} className="flex items-center">
-                                        <a href={link.href} className="text-sm text-white/60 transition-colors hover:text-white">
-                                            {link.text}
-                                        </a>
-                                        {index < legalLinks.length - 1 && (
-                                            <span className="ml-4 select-none text-white/60 lg:ml-6" aria-hidden="true">|</span>
-                                        )}
-                                    </li>
-                                ))}
-                                <li className="flex items-center">
-                                    <a href="#" className="text-sm text-white/60 transition-colors hover:text-white">
-                                        Your Privacy Choices
+                    <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                        {/* Left Side - Social Icons and Copyright */}
+                        <div className="flex flex-col gap-4">
+                            {/* Social Media Icons */}
+                            <div className="flex items-center gap-4">
+                                {socialLinks.map(({ Icon, href, name }) => (
+                                    <a key={name} href={href} aria-label={name} target="_blank" rel="noopener noreferrer" className="text-white/60 transition-all hover:scale-110 hover:text-white">
+                                        <Icon className="h-5 w-5" />
                                     </a>
-                                </li>
-                            </ul>
+                                ))}
+                            </div>
+                            {/* Copyright */}
+                            <div className="text-sm text-white/50">
+                                © Copyright 2023 Mulecraft All rights reserved.
+                            </div>
+                        </div>
+                        
+                        {/* Right Side - Legal Links */}
+                        <nav className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                            {legalLinks.map((link, index) => (
+                                <div key={link.text} className="flex items-center">
+                                    <a href={link.href} className="text-sm text-white/60 transition-colors hover:text-white">
+                                        {link.text}
+                                    </a>
+                                    {index < legalLinks.length - 1 && (
+                                        <span className="ml-4 select-none text-white/60" aria-hidden="true">|</span>
+                                    )}
+                                </div>
+                            ))}
+                            <div className="flex items-center">
+                                <span className="ml-4 select-none text-white/60" aria-hidden="true">|</span>
+                                <a href="#" className="ml-4 text-sm text-white/60 transition-colors hover:text-white">
+                                    Your Privacy Choices
+                                </a>
+                            </div>
                         </nav>
                     </div>
                 </div>

@@ -42,14 +42,21 @@ const valueProps: ValueProp[] = [
 
 const ValuePropCard = ({ icon: Icon, title, description, ctaText, ctaLink }: ValueProp) => (
   <div className="flex h-full flex-col items-center rounded-2xl border border-[#E5E5E5] bg-white p-10 text-center transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)]">
-    <Icon className="mb-6 h-16 w-16 text-[#6C4FE0]" strokeWidth={1.5} />
+    <Icon className="mb-6 h-16 w-16" strokeWidth={1.5} style={{ background: 'linear-gradient(to right, #00A1FF, #0066CC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', color: 'transparent' }} />
     <h3 className="mb-4 font-display text-[24px] font-bold text-[#1A1A2E]">{title}</h3>
     <p className="mb-8 flex-grow font-body text-base leading-[1.6] text-[#666666]">{description}</p>
     <Link
       to={ctaLink}
-      className="mt-auto inline-block rounded-full border-2 border-[#6C4FE0] bg-transparent px-6 py-3 font-ui font-semibold text-[#6C4FE0] transition-colors duration-300 ease-in-out hover:bg-[#6C4FE0] hover:text-white"
+      className="mt-auto inline-block rounded-full border-2 bg-transparent px-6 py-3 font-ui font-semibold transition-all duration-300 ease-in-out relative overflow-hidden group hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:text-white"
+      style={{ 
+        borderColor: 'transparent',
+        background: 'linear-gradient(#fff, #fff) padding-box, linear-gradient(to right, #00A1FF, #0066CC) border-box',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text'
+      }}
     >
-      {ctaText}
+      <span className="relative z-10">{ctaText}</span>
     </Link>
   </div>
 );

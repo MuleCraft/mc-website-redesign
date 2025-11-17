@@ -20,7 +20,7 @@ const services = [
     ),
     title: "Data Management",
     description: "Get a synchronized 360-degree view of your data across all systems.",
-    color: "from-purple-500 to-pink-500",
+    color: "from-[#00A1FF] to-[#0066CC]",
   },
   {
     icon: (

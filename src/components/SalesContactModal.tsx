@@ -79,13 +79,13 @@ export const SalesContactModal = () => {
                 href="https://boomi.com/custom-demo-request/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center text-white font-ui font-semibold py-4 px-8 rounded-full mb-4 bg-gradient-to-r from-[#6C4FE0] to-[#B8438C] transform transition-transform duration-300 hover:scale-[1.02] hover:brightness-105"
+                className="block w-full text-center text-white font-ui font-semibold py-4 px-8 rounded-full mb-4 bg-gradient-to-r from-[#00A1FF] to-[#0066CC] transform transition-transform duration-300 hover:scale-[1.02] hover:from-[#0080CC] hover:to-[#0052A3]"
               >
                 Request a demo
               </a>
               <button
                 onClick={handleClose}
-                className="block w-full text-center text-[#6C4FE0] font-ui font-medium py-3 px-6 bg-transparent border-none hover:underline"
+                className="block w-full text-center font-ui font-medium py-3 px-6 bg-transparent border-none hover:underline bg-gradient-to-r from-[#00A1FF] to-[#0066CC] bg-clip-text text-transparent"
               >
                 Maybe later — just browsing for now.
               </button>

@@ -43,7 +43,7 @@ const products: Product[] = [
     capabilities: ['Import/Export', 'Guided Workflows', 'Error Handling', 'Script Validation'],
     imageSrc: '/csi1.png',
     imageAlt: 'SnapMapper product interface',
-    gradient: 'from-[#903BFF]/20 to-[#38BDF8]/20',
+    gradient: 'from-[#00A1FF]/20 to-[#0066CC]/20',
     link: 'https://snaplogic.playground.mulecraft.in/',
     techStack: 'Vite React Javascript, Chakra UI (No Backend)',
     processOfRelease: 'Released globally and showcased at the SnapLogic North America Meetup. Conducted live demos and feedback sessions before market rollout. Next we have planned for internal chatbot.',
@@ -70,7 +70,7 @@ const products: Product[] = [
     capabilities: ['Natural Language Processing', 'RAML Generation', 'Anypoint Integration', 'API Optimization'],
     imageSrc: '/csi2.png',
     imageAlt: 'RAMLify product interface',
-    gradient: 'from-[#A855F7]/20 to-[#16A374]/20',
+    gradient: 'from-[#00A1FF]/20 to-[#0066CC]/20',
     link: 'https://ramlify-flow-agent.lovable.app/',
     techStack: 'Vite React TypeScript, Shadcn, AI (Mistral), Supabase',
     processOfRelease: 'Released internally to MuleSoft developers; tested in production use cases to reduce RAML development time.',
@@ -97,7 +97,7 @@ const products: Product[] = [
     capabilities: ['AI Task Generation', 'Transformation Playground', 'RAML Assistant', 'Progress Tracking'],
     imageSrc: '/csi3.png',
     imageAlt: 'MuleSoftLP product interface',
-    gradient: 'from-[#6C5CE7]/20 to-[#22C55E]/20',
+    gradient: 'from-[#00A1FF]/20 to-[#0066CC]/20',
     link: 'https://mulesoft.dev/',
     techStack: 'Vite React TypeScript, Shadcn, Supabase, AI (Deepseek)',
     processOfRelease: 'Released publicly with growing adoption (400+ users). Next release will include a MuleSoft connection learning module.',
@@ -124,14 +124,14 @@ const products: Product[] = [
     capabilities: ['One-Click Deploy', 'Auto-Scale', 'Enterprise Security', 'Zero Complexity'],
     imageSrc: '/csi4.png',
     imageAlt: 'Goose DevOps platform interface',
-    gradient: 'from-[#903BFF]/20 to-[#38BDF8]/20',
+    gradient: 'from-[#00A1FF]/20 to-[#0066CC]/20',
     link: 'https://goosed.in/',
     techStack: 'DevOps Platform',
     processOfRelease: 'Enterprise DevOps platform for seamless deployment and scaling.',
   },
 ];
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product, isActive }: { product: Product; isActive: boolean }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -165,17 +165,41 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div
       ref={cardRef}
-      className={`relative h-full overflow-hidden rounded-2xl border border-white/10 bg-[#0A0A0A] p-8 md:p-12 backdrop-blur-xl transition-opacity duration-500 ${
+      className={`relative h-full overflow-hidden backdrop-blur-[16px] p-6 md:p-8 lg:p-12 transition-all duration-500 ${
         isVisible ? 'opacity-100' : 'opacity-50'
       }`}
-      style={{ minHeight: '700px' }}
+      style={{ 
+        minHeight: '700px',
+        borderRadius: '2.4rem',
+        background: isActive 
+          ? 'linear-gradient(180deg, rgba(23, 23, 23, 0.3) 0%, rgba(23, 23, 23, 0.3) 60%, rgba(0, 161, 255, 0.2) 80%, rgba(0, 128, 255, 0.3) 100%)'
+          : 'rgba(23, 23, 23, 0.3)',
+        boxShadow: isActive 
+          ? `rgba(255, 255, 255, 0.15) -1px 0px 0px 0px inset,
+             rgba(255, 255, 255, 0.15) 0px -1px 0px 0px inset,
+             rgb(255, 255, 255) -2px -2px 2px -3px inset,
+             rgba(255, 255, 255, 0.3) 0px 1px 0px 0px inset,
+             rgba(255, 255, 255, 0.2) 1px 0px 0px 0px inset,
+             rgb(255, 255, 255) 4px 4px 1px -5px inset,
+             rgba(0, 0, 0, 0.3) 0px 4px 12px 0px inset,
+             rgba(0, 0, 0, 0.2) 0px 2px 6px 0px inset,
+             rgba(0, 0, 0, 0.01) 0px 0px 0px 2px inset,
+             rgba(0, 0, 0, 0.5) 8px -8px 24px 0px inset`
+          : `rgba(255, 255, 255, 0.15) -1px 0px 0px 0px inset,
+             rgba(255, 255, 255, 0.15) 0px -1px 0px 0px inset,
+             rgb(255, 255, 255) -2px -2px 2px -3px inset,
+             rgba(255, 255, 255, 0.3) 0px 1px 0px 0px inset,
+             rgba(255, 255, 255, 0.2) 1px 0px 0px 0px inset,
+             rgb(255, 255, 255) 4px 4px 1px -5px inset,
+             rgba(0, 0, 0, 0.3) 0px 4px 12px 0px inset,
+             rgba(0, 0, 0, 0.2) 0px 2px 6px 0px inset,
+             rgba(0, 0, 0, 0.01) 0px 0px 0px 2px inset`
+      }}
     >
-      <div className={`absolute inset-0 z-0 bg-gradient-to-br ${product.gradient}`} />
-      
       <div className="relative z-10 grid h-full grid-cols-1 items-start gap-12 lg:grid-cols-2">
         <div className="flex flex-col">
-          <h3 className="font-display text-4xl font-medium text-white mb-4">{product.title}</h3>
-          <p className="text-white/70 text-lg mb-8 leading-relaxed">{product.description}</p>
+          <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-medium text-white mb-4">{product.title}</h3>
+          <p className="text-white/70 text-base mb-8 leading-relaxed">{product.description}</p>
           
           <div className="space-y-6">
             {product.features.map((feature, index) => (
@@ -198,23 +222,12 @@ const ProductCard = ({ product }: { product: Product }) => {
               ))}
             </div>
           </div>
-
-          <div className="mt-8 pt-6 border-t border-white/10">
-            <div className="mb-5">
-              <h4 className="font-body text-xs text-white/60 mb-2 uppercase tracking-wider">Tech Stack</h4>
-              <p className="text-sm text-white/80 leading-relaxed">{product.techStack}</p>
-            </div>
-            <div>
-              <h4 className="font-body text-xs text-white/60 mb-2 uppercase tracking-wider">Process of Release</h4>
-              <p className="text-sm text-white/80 leading-relaxed">{product.processOfRelease}</p>
-            </div>
-          </div>
           
           <a
             href={product.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-block rounded-lg bg-[#6C4FE0] px-6 py-3 font-medium text-white transition-colors hover:bg-[#5a3fc7] self-start"
+            className="mt-8 inline-block rounded-lg bg-gradient-to-r from-[#00A1FF] to-[#0066CC] px-6 py-3 font-medium text-white transition-all hover:from-[#0080CC] hover:to-[#0052A3] self-start"
           >
             Learn more
           </a>
@@ -222,7 +235,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         
         <div className="flex items-center justify-center lg:sticky lg:top-32">
           <div className="relative w-full max-w-lg">
-            <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-black/20">
+            <div className="relative rounded-xl overflow-hidden">
               <img
                 src={product.imageSrc}
                 alt={product.imageAlt}
@@ -360,7 +373,7 @@ export const CaseStudyCarousel = () => {
   return (
     <section className="bg-black py-24 sm:py-32" ref={sectionRef}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center font-display text-[56px] font-bold leading-tight text-white mb-16">
+        <h2 className="text-center font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white mb-16">
           Built for what you're building
         </h2>
         
@@ -382,13 +395,28 @@ export const CaseStudyCarousel = () => {
                     <button
                       key={product.id}
                       onClick={() => handleHeaderClick(product.id)}
-                      className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
+                      role="tab"
+                      aria-selected={activeProduct === product.id}
+                      tabIndex={activeProduct === product.id ? 0 : -1}
+                      className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 relative ${
                         activeProduct === product.id
-                          ? 'bg-white/10 text-white font-semibold'
+                          ? 'text-white font-semibold'
                           : 'text-white/50 hover:text-white/80 hover:bg-white/5'
                       }`}
                     >
-                      <span className="text-base font-medium">{product.label}</span>
+                      <p className="text-xs uppercase tracking-wider font-medium relative">
+                        <span className="relative inline-block">
+                          {product.label}
+                          {activeProduct === product.id && (
+                            <span 
+                              className="absolute bottom-[-8px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full"
+                              style={{
+                                boxShadow: '0 2px 4px rgba(0, 161, 255, 0.3)'
+                              }}
+                            />
+                          )}
+                        </span>
+                      </p>
                     </button>
                   ))}
                 </div>
@@ -406,7 +434,7 @@ export const CaseStudyCarousel = () => {
                     cardRefs.current[index] = el;
                   }}
                 >
-                  <ProductCard product={product} />
+                  <ProductCard product={product} isActive={activeProduct === product.id} />
                 </div>
               ))}
             </div>
@@ -428,7 +456,7 @@ export const CaseStudyCarousel = () => {
               >
                 {product.label}
                 {activeProduct === product.id && (
-                  <span className="absolute bottom-[-1.5px] left-0 right-0 h-[3px] rounded-full bg-[#6C4FE0]" />
+                  <span className="absolute bottom-[-1.5px] left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-[#00A1FF] to-[#0066CC]" />
                 )}
               </button>
             ))}
@@ -446,7 +474,7 @@ export const CaseStudyCarousel = () => {
                   : 'pointer-events-none opacity-0'
               }`}
             >
-              <ProductCard product={product} />
+              <ProductCard product={product} isActive={activeProduct === product.id} />
             </div>
           ))}
         </div>

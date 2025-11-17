@@ -16,7 +16,7 @@ const Index = () => {
       <StatsSection />
       <HowItWorks />
       <CaseStudyCarousel />
-      <IntegrationConnectors />
+      {/* <IntegrationConnectors /> */}
       <ReviewsCarousel />
       <FinalCta />
       <Footer />

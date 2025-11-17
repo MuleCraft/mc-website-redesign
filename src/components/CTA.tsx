@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 export const CTA = () => {
   return (
     <section className="py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-purple-600 to-accent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#00A1FF] via-[#0080FF] to-[#0066CC]"></div>
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItMnptMCAzMnYtMiAyem0tMiAwaDJ6bTAtMzJoMnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
       
       <div className="container mx-auto px-4 relative z-10">

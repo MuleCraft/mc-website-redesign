@@ -122,13 +122,13 @@ export const HowItWorks = () => {
                   className={index === expertiseBlocks.length - 1 ? 'mb-0' : 'mb-16 lg:mb-20'}
                   style={{ minHeight: '450px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}
                 >
-                  <div className="text-[#6C4FE0] font-bold text-sm tracking-[0.1em] uppercase mb-4">
+                  <div className="bg-gradient-to-r from-[#00A1FF] to-[#0066CC] bg-clip-text text-transparent font-bold text-sm tracking-[0.1em] uppercase mb-4">
                     {block.tag}
                   </div>
-                  <h2 className="font-bold text-white text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">
+                  <h2 className="font-bold text-white text-xl md:text-2xl lg:text-3xl leading-tight mb-6">
                     {block.headline}
                   </h2>
-                  <p className="text-lg text-white/70 leading-relaxed max-w-[600px]">
+                  <p className="text-base text-white/70 leading-relaxed max-w-[600px]">
                     {block.description}
                   </p>
                 </div>

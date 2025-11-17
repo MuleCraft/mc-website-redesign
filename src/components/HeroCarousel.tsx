@@ -385,7 +385,7 @@ export const HeroCarousel = () => {
                                 <li key={idx}>
                                   <a 
                                     href={item.href} 
-                                    className="text-[#6C4FE0] text-sm hover:underline font-medium"
+                                    className="bg-gradient-to-r from-[#00A1FF] to-[#0066CC] bg-clip-text text-transparent text-sm hover:underline font-medium"
                                     target={item.href.startsWith('http') ? '_blank' : undefined}
                                     rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                                   >
@@ -578,11 +578,11 @@ export const HeroCarousel = () => {
             {/* Blur overlay above video */}
             <div className="blur-overlay" style={{ zIndex: 1 }}></div>
             {/* Blue overlay for stronger blue effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0066CC]/40 via-[#0080FF]/35 to-[#0066CC]/40 transition-opacity duration-500" style={{ zIndex: 2 }}></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#00A1FF]/40 via-[#0080FF]/35 to-[#0066CC]/40 transition-opacity duration-500" style={{ zIndex: 2 }}></div>
             {/* Overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#E6F2F8]/10 via-[#D4E8F2]/8 to-[#C8E3F0]/10 transition-opacity duration-500" style={{ zIndex: 3 }}></div>
             {/* Blue glow overlay on hover */}
-            <div className="blue-glow-overlay absolute inset-0 bg-gradient-to-r from-[#00A1FF]/20 via-[#0066CC]/30 to-[#00A1FF]/20 opacity-0 transition-opacity duration-500 pointer-events-none" style={{ zIndex: 4 }}></div>
+            <div className="blue-glow-overlay absolute inset-0 bg-gradient-to-r from-[#00A1FF]/30 via-[#0080FF]/25 to-[#0066CC]/30 opacity-0 transition-opacity duration-500 pointer-events-none" style={{ zIndex: 4 }}></div>
             {/* Cursor following shadow */}
             {isHovering && (
               <div
@@ -609,7 +609,7 @@ export const HeroCarousel = () => {
                       className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
                       aria-hidden={activeIndex !== index}
                     >
-                      <h1 className="font-bold text-[28px] leading-tight md:text-3xl lg:text-[40px] lg:leading-[1.2] text-white">
+                      <h1 className="font-bold text-2xl leading-tight md:text-3xl lg:text-4xl lg:leading-[1.2] text-white">
                         {slide.headline}
                       </h1>
                       <p className="mx-auto mt-3 max-w-xl text-sm text-white/80 lg:mx-0 lg:text-base lg:leading-[1.5]">

@@ -1,6 +1,6 @@
 export const AiIntegrationCta = () => {
   return (
-    <section className="bg-white py-12 lg:py-20">
+    <section className="bg-black py-12 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl" style={{ backgroundColor: '#002144' }}>
           <div className="flex flex-col lg:flex-row lg:items-center px-6 py-8 lg:px-16 lg:py-10">

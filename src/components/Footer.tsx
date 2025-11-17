@@ -102,7 +102,7 @@ const socialLinks = [
 
 export const Footer = () => {
     return (
-        <footer style={{ backgroundColor: '#002144' }} className="text-white font-sans">
+        <footer className="bg-black text-white font-sans">
             <div className="mx-auto max-w-[1400px] px-8 pt-16 pb-8 lg:pt-20 lg:pb-12">
                 <div className="mb-16 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
                     {navColumns.map((column) => (

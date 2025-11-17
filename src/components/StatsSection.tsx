@@ -99,11 +99,11 @@ const AnimatedNumber = ({ valueString }: { valueString: string }) => {
 };
 
 const StatCard = ({ stat }: { stat: Stat }) => (
-  <div className="text-center border border-[#E5E5E5] rounded-2xl bg-white p-10 px-8 transition-all duration-300 ease-out hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
+  <div className="text-center border border-white/10 rounded-2xl bg-black p-10 px-8 transition-all duration-300 ease-out hover:shadow-[0_6px_20px_rgba(255,255,255,0.08)]">
     <p className="mb-3 text-4xl font-bold leading-tight bg-gradient-to-r from-[#B8438C] to-[#8B3A8B] bg-clip-text text-transparent md:text-5xl">
        <AnimatedNumber valueString={stat.value} />
     </p>
-    <p className="mx-auto max-w-[280px] text-base leading-6 text-muted-foreground">
+    <p className="mx-auto max-w-[280px] text-base leading-6 text-white/70">
       {stat.description}
     </p>
   </div>
@@ -111,9 +111,9 @@ const StatCard = ({ stat }: { stat: Stat }) => (
 
 export const StatsSection = () => {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-black py-16 md:py-20">
       <div className="mx-auto max-w-[1400px] px-8">
-        <h2 className="mb-12 text-center text-3xl font-bold text-[#1A1A2E] md:text-4xl">
+        <h2 className="mb-12 text-center text-3xl font-bold text-white md:text-4xl">
           Proven Results. Trusted Worldwide.
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">

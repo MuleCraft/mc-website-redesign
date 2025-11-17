@@ -5,25 +5,25 @@ const expertiseBlocks = [
     tag: 'Our Expertise',
     headline: 'Powering the Future of Connected Experiences',
     description: 'MuleCraft blends integration, intelligence and modern engineering to build connected platforms. From MuleSoft and SnapLogic to React-based apps, we deliver scalable, high-performance solutions with exceptional user experiences.',
-    gif: '/hiw1.gif',
+    gif: '/hiwb1.gif',
   },
   {
     tag: 'Smarter solutions',
     headline: 'Seamless Integrations, Smarter Connections',
     description: 'We combine automation, scalability and intelligent design to unify complex systems—ensuring seamless data flow, stronger connectivity and lasting digital transformation.',
-    gif: '/hiw2.gif',
+    gif: '/hiwb2.gif',
   },
   {
     tag: 'Seamless solutions',
     headline: 'Transformative Business Solutions',
     description: 'Accelerate your digital growth with solutions built for scalability. Implement API gateways, orchestration patterns and real-time event processing to future-proof your enterprise architecture.',
-    gif: '/hiw3.gif',
+    gif: '/hiwb3.gif',
   },
   {
     tag: 'Effortless solutions',
     headline: 'Integration Made Effortless',
     description: 'Achieve faster project turnaround with minimal technical overhead. Harness event-driven architecture, reusable connectors and micro services for agile integration delivery.',
-    gif: '/hiw4.gif',
+    gif: '/hiwb4.gif',
   },
 ];
 
@@ -36,8 +36,8 @@ export const HowItWorks = () => {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '-35% 0px -35% 0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1],
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -56,7 +56,7 @@ export const HowItWorks = () => {
       });
 
       // Update if we found a block with significant intersection
-      if (maxRatio > 0.1 && maxIndex !== activeIndex) {
+      if (maxRatio > 0.15 && maxIndex !== activeIndex) {
         setActiveIndex(maxIndex);
       }
     };
@@ -106,11 +106,11 @@ export const HowItWorks = () => {
       `}</style>
       <section 
         ref={sectionRef}
-        className="bg-white py-16 lg:py-20 relative"
+        className="bg-black py-16 lg:py-20 relative"
       >
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main Container with Left and Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 relative items-start">
             {/* Left Column - All Content Blocks Stacked Vertically */}
             <div className="lg:pr-8">
               {expertiseBlocks.map((block, index) => (
@@ -120,15 +120,15 @@ export const HowItWorks = () => {
                     blockRefs.current[index] = el;
                   }}
                   className={index === expertiseBlocks.length - 1 ? 'mb-0' : 'mb-16 lg:mb-20'}
-                  style={{ minHeight: '450px' }}
+                  style={{ minHeight: '450px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}
                 >
                   <div className="text-[#6C4FE0] font-bold text-sm tracking-[0.1em] uppercase mb-4">
                     {block.tag}
                   </div>
-                  <h2 className="font-bold text-[#002144] text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">
+                  <h2 className="font-bold text-white text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">
                     {block.headline}
                   </h2>
-                  <p className="text-lg text-[#666666] leading-relaxed max-w-[600px]">
+                  <p className="text-lg text-white/70 leading-relaxed max-w-[600px]">
                     {block.description}
                   </p>
                 </div>
@@ -147,14 +147,19 @@ export const HowItWorks = () => {
               >
                 {/* Single Sticky Container - Stays fixed until all blocks complete */}
                 <div 
-                  className="sticky top-32"
+                  className="sticky"
                   style={{ 
-                    height: '500px',
-                    width: '100%'
+                    top: '60px',
+                    height: '450px',
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'center',
+                    paddingTop: '0px'
                   }}
                 >
                   {/* Single Container for All GIFs */}
-                  <div className="relative w-full h-full">
+                  <div className="relative w-full h-full flex items-center justify-center">
                     {expertiseBlocks.map((block, index) => (
                       <div
                         key={index}
@@ -168,7 +173,8 @@ export const HowItWorks = () => {
                           <img
                             src={block.gif}
                             alt={block.headline}
-                            className="w-full h-auto max-h-[500px] object-contain"
+                            className="w-full h-auto max-h-[450px] object-contain"
+                            loading="lazy"
                           />
                         </div>
                       </div>
@@ -189,13 +195,14 @@ export const HowItWorks = () => {
                     src={block.gif}
                     alt={block.headline}
                     className="w-full h-auto max-h-[400px] object-contain"
+                    loading="lazy"
                   />
                 </div>
               ))}
             </div>
-          </div>
         </div>
-      </section>
+      </div>
+    </section>
     </>
   );
 };

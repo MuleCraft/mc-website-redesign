@@ -1,258 +1,456 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
-type Stat = {
-  value: string;
+type ProductId = 'snpmapper' | 'mulesoftlp' | 'ramlify' | 'goose';
+
+interface Product {
+  id: ProductId;
   label: string;
-};
-
-type Testimonial = {
-  quote: string;
-  author: string;
   title: string;
-};
-
-type CaseStudy = {
-  tag: string;
-  headline: string;
   description: string;
-  ctaText: string;
-  ctaLink: string;
-  stats: Stat[];
-  testimonial: Testimonial;
-  tabLogo: string | null;
-  tabLogoAlt: string;
-  logoForImage: string;
-};
+  features: {
+    label: string;
+    description: string;
+  }[];
+  capabilities: string[];
+  imageSrc: string;
+  imageAlt: string;
+  gradient: string;
+  link: string;
+  techStack: string;
+  processOfRelease: string;
+}
 
-const caseStudiesData: CaseStudy[] = [
+const products: Product[] = [
   {
-    tag: "ENTERPRISE",
-    headline: "Enterprise Transforms Its Integration Process With MuleSoft",
-    description: "A leading enterprise has automated its order-to-cash process to handle a 3X increase in transaction volume while improving operational efficiency",
-    ctaText: "Read customer story",
-    ctaLink: "#",
-    stats: [
-      { value: "3x", label: "faster integration speed" },
-      { value: "50%", label: "reduction in manual processes" },
+    id: 'snpmapper',
+    label: 'SnapMapper',
+    title: 'SnapMapper',
+    description: 'A SnapLogic playground providing a safe three-panel interface for testing and validating integration scripts with features like import/export, guided workflows, and real-time error handling.',
+    features: [
+      {
+        label: 'Three-Panel Interface',
+        description: 'Safe testing environment with Payload, Script, and Output panels for validation.',
+      },
+      {
+        label: 'Import/Export',
+        description: 'Easily import and export your integration scripts and configurations.',
+      },
+      {
+        label: 'Real-Time Error Handling',
+        description: 'Get instant feedback and error detection while developing your SnapLogic workflows.',
+      },
     ],
-    testimonial: {
-      quote: "MuleCraft's MuleSoft expertise delivered outstanding value for our integration needs in a rapidly changing environment.",
-      author: "John Smith",
-      title: "Senior Integration Architect, Enterprise Corp",
-    },
-    tabLogo: null,
-    tabLogoAlt: "Enterprise Logo",
-    logoForImage: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Smartsheet-Logo-67.svg",
+    capabilities: ['Import/Export', 'Guided Workflows', 'Error Handling', 'Script Validation'],
+    imageSrc: '/csi1.png',
+    imageAlt: 'SnapMapper product interface',
+    gradient: 'from-[#903BFF]/20 to-[#38BDF8]/20',
+    link: 'https://snaplogic.playground.mulecraft.in/',
+    techStack: 'Vite React Javascript, Chakra UI (No Backend)',
+    processOfRelease: 'Released globally and showcased at the SnapLogic North America Meetup. Conducted live demos and feedback sessions before market rollout. Next we have planned for internal chatbot.',
   },
   {
-    tag: "FINANCIAL",
-    headline: "Financial Services Powers Data-Driven Decision-Making",
-    description: "Leading financial institution realizes 70 percent reduction in integration time, speeding time-to-value while optimizing processes",
-    ctaText: "Read customer story",
-    ctaLink: "#",
-    stats: [{ value: "70%", label: "reduction in integration time" }],
-    testimonial: {
-      quote: "We have grown our MuleSoft integration capabilities sustainably and without complexity.",
-      author: "Financial Services Inc",
-      title: "Leading Financial Institution",
-    },
-    tabLogo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Origin-Menu-Case-Study-Logo-68.svg",
-    tabLogoAlt: "Financial Services Logo",
-    logoForImage: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/Origin-Menu-Case-Study-Logo-68.svg",
+    id: 'ramlify',
+    label: 'RAMLify',
+    title: 'RAMLify',
+    description: 'An AI-based assistant that converts natural language to RAML specifications, helping developers design and optimize APIs faster with Anypoint integration.',
+    features: [
+      {
+        label: 'Natural Language to RAML',
+        description: 'Convert your API requirements from natural language to RAML specifications instantly.',
+      },
+      {
+        label: 'Anypoint Integration',
+        description: 'Seamlessly integrate with MuleSoft Anypoint Platform for faster API development.',
+      },
+      {
+        label: 'AI-Powered Optimization',
+        description: 'Get intelligent suggestions to optimize and improve your RAML specifications.',
+      },
+    ],
+    capabilities: ['Natural Language Processing', 'RAML Generation', 'Anypoint Integration', 'API Optimization'],
+    imageSrc: '/csi2.png',
+    imageAlt: 'RAMLify product interface',
+    gradient: 'from-[#A855F7]/20 to-[#16A374]/20',
+    link: 'https://ramlify-flow-agent.lovable.app/',
+    techStack: 'Vite React TypeScript, Shadcn, AI (Mistral), Supabase',
+    processOfRelease: 'Released internally to MuleSoft developers; tested in production use cases to reduce RAML development time.',
   },
   {
-    tag: "TECHNOLOGY",
-    headline: "Technology Company Doubles Integration Speed & Cuts Processing Time",
-    description: "Global technology vendor realizes greater speed, agility, and cost-efficiency by leveraging MuleCraft's MuleSoft expertise",
-    ctaText: "Read customer story",
-    ctaLink: "#",
-    stats: [{ value: "2x", label: "faster integration speed" }],
-    testimonial: {
-      quote: "MuleCraft is operationally efficient, cost-efficient, and scalable for our MuleSoft implementations.",
-      author: "Tech Solutions Ltd",
-      title: "Global Technology Vendor",
-    },
-    tabLogo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/riverbed-logo-104.svg",
-    tabLogoAlt: "Technology Company Logo",
-    logoForImage: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/riverbed-logo-104.svg",
+    id: 'mulesoftlp',
+    label: 'MuleSoftLP',
+    title: 'MuleSoft Learning Platform',
+    description: 'A learning and integration platform offering AI-powered task generation, transformation playground, and RAML assistant modules with progress tracking.',
+    features: [
+      {
+        label: 'AI-Powered Task Generation',
+        description: 'Generate personalized DataWeave challenges and learning tasks powered by AI.',
+      },
+      {
+        label: 'Transformation Playground',
+        description: 'Practice data transformations in a safe, interactive environment with real-time feedback.',
+      },
+      {
+        label: 'Progress Tracking',
+        description: 'Track your learning journey and monitor your progress across different modules.',
+      },
+    ],
+    capabilities: ['AI Task Generation', 'Transformation Playground', 'RAML Assistant', 'Progress Tracking'],
+    imageSrc: '/csi3.png',
+    imageAlt: 'MuleSoftLP product interface',
+    gradient: 'from-[#6C5CE7]/20 to-[#22C55E]/20',
+    link: 'https://mulesoft.dev/',
+    techStack: 'Vite React TypeScript, Shadcn, Supabase, AI (Deepseek)',
+    processOfRelease: 'Released publicly with growing adoption (400+ users). Next release will include a MuleSoft connection learning module.',
   },
   {
-    tag: "MANUFACTURING",
-    headline: "Manufacturing Company Slashes API Development Time",
-    description: "Leading industrial manufacturer's digital transformation prioritizes the modernization of legacy systems and new API-accessible digital workstreams with MuleSoft",
-    ctaText: "Read customer story",
-    ctaLink: "#",
-    stats: [],
-    testimonial: {
-      quote: "The levels of quality, productivity, reliability, pace, and operational efficiency that we quickly gained with MuleCraft were crucial factors for our success.",
-      author: "Manufacturing Corp",
-      title: "Leading Industrial Manufacturer",
-    },
-    tabLogo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/ptc-logo-105.svg",
-    tabLogoAlt: "Manufacturing Logo",
-    logoForImage: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/ptc-logo-105.svg",
+    id: 'goose',
+    label: 'Goose',
+    title: 'Deploy, Scale Dominate',
+    description: 'The ultimate DevOps platform that transforms how you build, deploy, and scale applications. Zero complexity, maximum impact.',
+    features: [
+      {
+        label: 'One-Click Deploy',
+        description: 'Deploy your applications with a single click, eliminating complex deployment processes.',
+      },
+      {
+        label: 'Auto-Scale',
+        description: 'Automatically scale your applications based on demand without manual intervention.',
+      },
+      {
+        label: 'Enterprise Security',
+        description: 'Built-in enterprise-grade security features to protect your applications and data.',
+      },
+    ],
+    capabilities: ['One-Click Deploy', 'Auto-Scale', 'Enterprise Security', 'Zero Complexity'],
+    imageSrc: '/csi4.png',
+    imageAlt: 'Goose DevOps platform interface',
+    gradient: 'from-[#903BFF]/20 to-[#38BDF8]/20',
+    link: 'https://goosed.in/',
+    techStack: 'DevOps Platform',
+    processOfRelease: 'Enterprise DevOps platform for seamless deployment and scaling.',
   },
 ];
 
-export const CaseStudyCarousel = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const activeCaseStudy = caseStudiesData[activeIndex];
-
-  const changeSlide = useCallback((newIndex: number) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setActiveIndex(newIndex);
-      setIsTransitioning(false);
-    }, 250);
-  }, []);
-
-  const handleNext = useCallback(() => {
-    const newIndex = (activeIndex + 1) % caseStudiesData.length;
-    changeSlide(newIndex);
-  }, [activeIndex, changeSlide]);
-
-  const handlePrev = useCallback(() => {
-    const newIndex = (activeIndex - 1 + caseStudiesData.length) % caseStudiesData.length;
-    changeSlide(newIndex);
-  }, [activeIndex, changeSlide]);
+const ProductCard = ({ product }: { product: Product }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!isHovered && !isTransitioning) {
-      intervalRef.current = setInterval(() => {
-        handleNext();
-      }, 8000);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '-20% 0px -20% 0px',
+        threshold: 0.3,
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
     }
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
       }
     };
-  }, [isHovered, isTransitioning, handleNext]);
+  }, []);
 
   return (
-    <section className="bg-white py-16 md:py-20">
-      <div className="max-w-[1400px] mx-auto px-8">
-        <h2 className="text-center text-[#1A1A2E] font-bold text-2xl md:text-[40px] leading-tight mb-12">
-          Leading organizations unlock possibility with MuleCraft
-        </h2>
-        <div 
-          className="relative"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div className={`bg-[#F8F8F8] rounded-3xl p-8 md:p-12 min-h-[500px] transition-opacity duration-500 ease-in-out ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}>
-            <div className="grid grid-cols-1 lg:grid-cols-10 lg:gap-12">
-              <div className="lg:col-span-4 flex flex-col justify-center order-2 lg:order-1 mt-8 lg:mt-0">
-                <div>
-                  <p className="text-[#6C4FE0] font-bold text-sm tracking-[0.1em] uppercase mb-4">
-                    {activeCaseStudy.tag}
-                  </p>
-                  <h3 className="text-[#1A1A2E] font-bold text-[28px] leading-tight mb-6">
-                    {activeCaseStudy.headline}
-                  </h3>
-                  <p className="text-[#666666] text-base leading-relaxed mb-8">
-                    {activeCaseStudy.description}
-                  </p>
-                  <a
-                    href={activeCaseStudy.ctaLink}
-                    className="inline-block bg-[#6C4FE0] text-white font-semibold py-3.5 px-8 rounded-full hover:bg-purple-800 transition-colors duration-300 mb-10"
-                  >
-                    {activeCaseStudy.ctaText}
-                  </a>
-                </div>
-                {activeCaseStudy.stats.length > 0 && (
-                  <div className="border-t border-gray-200 pt-8 mt-auto">
-                    {activeCaseStudy.stats.map((stat, index) => (
-                      <div key={index} className={index < activeCaseStudy.stats.length - 1 ? "mb-6" : ""}>
-                        <p className="text-4xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-                          {stat.value}
-                        </p>
-                        <p className="text-[#666666] text-base">{stat.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
+    <div
+      ref={cardRef}
+      className={`relative h-full overflow-hidden rounded-2xl border border-white/10 bg-[#0A0A0A] p-8 md:p-12 backdrop-blur-xl transition-opacity duration-500 ${
+        isVisible ? 'opacity-100' : 'opacity-50'
+      }`}
+      style={{ minHeight: '700px' }}
+    >
+      <div className={`absolute inset-0 z-0 bg-gradient-to-br ${product.gradient}`} />
+      
+      <div className="relative z-10 grid h-full grid-cols-1 items-start gap-12 lg:grid-cols-2">
+        <div className="flex flex-col">
+          <h3 className="font-display text-4xl font-medium text-white mb-4">{product.title}</h3>
+          <p className="text-white/70 text-lg mb-8 leading-relaxed">{product.description}</p>
+          
+          <div className="space-y-6">
+            {product.features.map((feature, index) => (
+              <div key={index}>
+                <p className="font-mono text-xs uppercase tracking-wider text-white/60 mb-2">
+                  {feature.label}
+                </p>
+                <p className="text-base text-white/90 leading-relaxed">{feature.description}</p>
               </div>
-              <div className="lg:col-span-6 order-1 lg:order-2">
-                <div className="bg-gradient-to-br from-[#002144] to-[#5046E5] rounded-2xl min-h-[300px] md:min-h-[450px] p-8 flex flex-col justify-between">
-                  <div className="flex-grow flex items-center justify-center">
-                    <img
-                      src={activeCaseStudy.logoForImage}
-                      alt={`${activeCaseStudy.tag} Logo`}
-                      className={`object-contain max-w-[200px] max-h-[50px] ${activeCaseStudy.tag !== 'ENTERPRISE' ? 'brightness-0 invert' : ''}`}
-                    />
-                  </div>
-                  <div className="mt-8">
-                    <img
-                      src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/39351f36-4f55-463c-a267-111cc830ecfb-boomi-com/assets/svgs/quote-icon-pink-99.svg"
-                      alt="Quote icon"
-                      className="w-10 h-8 mb-4"
-                    />
-                    <blockquote className="text-white/80 italic text-lg leading-relaxed">
-                      "{activeCaseStudy.testimonial.quote}"
-                    </blockquote>
-                    <footer className="mt-4 text-white/60 text-sm">
-                      <p className="font-semibold">{activeCaseStudy.testimonial.author}</p>
-                      <p>{activeCaseStudy.testimonial.title}</p>
-                    </footer>
-                  </div>
+            ))}
+          </div>
+          
+          <div className="mt-8">
+            <h4 className="font-body text-sm text-white/60 mb-3 uppercase tracking-wider">Featured capabilities</h4>
+            <div className="flex flex-wrap gap-x-3 gap-y-2">
+              {product.capabilities.map((cap) => (
+                <span key={cap} className="text-sm text-white/70 bg-white/5 px-3 py-1 rounded-md">
+                  {cap}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <div className="mb-5">
+              <h4 className="font-body text-xs text-white/60 mb-2 uppercase tracking-wider">Tech Stack</h4>
+              <p className="text-sm text-white/80 leading-relaxed">{product.techStack}</p>
+            </div>
+            <div>
+              <h4 className="font-body text-xs text-white/60 mb-2 uppercase tracking-wider">Process of Release</h4>
+              <p className="text-sm text-white/80 leading-relaxed">{product.processOfRelease}</p>
+            </div>
+          </div>
+          
+          <a
+            href={product.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-block rounded-lg bg-[#6C4FE0] px-6 py-3 font-medium text-white transition-colors hover:bg-[#5a3fc7] self-start"
+          >
+            Learn more
+          </a>
+        </div>
+        
+        <div className="flex items-center justify-center lg:sticky lg:top-32">
+          <div className="relative w-full max-w-lg">
+            <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-black/20">
+              <img
+                src={product.imageSrc}
+                alt={product.imageAlt}
+                className="h-auto w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const CaseStudyCarousel = () => {
+  const [activeProduct, setActiveProduct] = useState<ProductId>('snpmapper');
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const leftSidebarRef = useRef<HTMLDivElement>(null);
+  const stickyWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -30% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      let maxRatio = 0;
+      let maxIndex = 0;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = cardRefs.current.findIndex((ref) => ref === entry.target);
+          if (index !== -1 && entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            maxIndex = index;
+          }
+        }
+      });
+
+      if (maxRatio > 0.2) {
+        setActiveProduct(products[maxIndex].id);
+      }
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) {
+        observer.observe(ref);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const handleHeaderClick = (productId: ProductId) => {
+    setActiveProduct(productId);
+    const index = products.findIndex((p) => p.id === productId);
+    const cardElement = cardRefs.current[index];
+    if (cardElement) {
+      cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  // Calculate total height for sticky wrapper dynamically
+  useEffect(() => {
+    const calculateTotalHeight = () => {
+      let total = 0;
+      let allCardsRendered = true;
+      
+      cardRefs.current.forEach((ref, index) => {
+        if (ref && ref.offsetHeight > 0) {
+          const cardHeight = ref.offsetHeight;
+          total += cardHeight;
+          // Add spacing between cards (space-y-8 = 32px)
+          if (index < cardRefs.current.length - 1) {
+            total += 32;
+          }
+        } else {
+          allCardsRendered = false;
+        }
+      });
+      
+      // If all cards are rendered, use calculated height, otherwise use fallback
+      if (allCardsRendered && total > 0) {
+        return total;
+      }
+      // Fallback: 4 products * 700px + 3 gaps * 32px = 2896px
+      return products.length * 700 + (products.length - 1) * 32;
+    };
+
+    const updateHeight = () => {
+      if (stickyWrapperRef.current) {
+        const height = calculateTotalHeight();
+        stickyWrapperRef.current.style.height = `${height}px`;
+      }
+    };
+
+    // Initial calculation with multiple attempts to ensure cards are rendered
+    updateHeight();
+    
+    // Recalculate after delays to catch cards as they render
+    const timeouts = [
+      setTimeout(updateHeight, 100),
+      setTimeout(updateHeight, 300),
+      setTimeout(updateHeight, 500),
+    ];
+
+    // Recalculate on window resize
+    window.addEventListener('resize', updateHeight);
+    
+    // Use ResizeObserver to watch for card size changes
+    const resizeObserver = new ResizeObserver(() => {
+      updateHeight();
+    });
+    
+    cardRefs.current.forEach((ref) => {
+      if (ref) {
+        resizeObserver.observe(ref);
+      }
+    });
+
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+      timeouts.forEach(timeout => clearTimeout(timeout));
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  return (
+    <section className="bg-black py-24 sm:py-32" ref={sectionRef}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-center font-display text-[56px] font-bold leading-tight text-white mb-16">
+          Built for what you're building
+        </h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
+          {/* Left Sidebar - Fixed */}
+          <div className="lg:col-span-3 hidden lg:block">
+            <div
+              ref={stickyWrapperRef}
+              className="relative"
+              style={{ minHeight: `${products.length * 700 + (products.length - 1) * 32}px` }}
+            >
+              <div
+                ref={leftSidebarRef}
+                className="sticky"
+                style={{ top: '128px' }}
+              >
+                <div className="space-y-2">
+                  {products.map((product) => (
+                    <button
+                      key={product.id}
+                      onClick={() => handleHeaderClick(product.id)}
+                      className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 ${
+                        activeProduct === product.id
+                          ? 'bg-white/10 text-white font-semibold'
+                          : 'text-white/50 hover:text-white/80 hover:bg-white/5'
+                      }`}
+                    >
+                      <span className="text-base font-medium">{product.label}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
-          
-          <button
-            onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 hidden lg:flex h-12 w-12 items-center justify-center rounded-full bg-white border border-gray-200 shadow-md hover:bg-gray-50 transition-colors z-10"
-            aria-label="Previous case study"
-          >
-            <ChevronLeft className="h-6 w-6 text-gray-700" />
-          </button>
-          <button
-            onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 hidden lg:flex h-12 w-12 items-center justify-center rounded-full bg-white border border-gray-200 shadow-md hover:bg-gray-50 transition-colors z-10"
-            aria-label="Next case study"
-          >
-            <ChevronRight className="h-6 w-6 text-gray-700" />
-          </button>
+
+          {/* Right Content - Scrollable Cards */}
+          <div className="lg:col-span-9">
+            <div className="space-y-8">
+              {products.map((product, index) => (
+                <div
+                  key={product.id}
+                  ref={(el) => {
+                    cardRefs.current[index] = el;
+                  }}
+                >
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="mt-12">
-          <div className="flex justify-center items-center gap-4 sm:gap-8 overflow-x-auto pb-4 -mx-8 px-8 sm:mx-0 sm:px-0 no-scrollbar">
-            {caseStudiesData.map((study, index) => (
+        {/* Mobile Tabs */}
+        <div className="mt-12 mb-8 border-b border-white/10 lg:hidden">
+          <div className="mx-auto flex max-w-md justify-center" role="tablist">
+            {products.map((product) => (
               <button
-                key={index}
-                onClick={() => changeSlide(index)}
-                className={`flex-shrink-0 transition-all duration-300 py-3 px-2 sm:px-4 ${
-                  activeIndex === index ? 'border-b-[3px] border-[#6C4FE0]' : 'border-b-[3px] border-transparent'
+                key={product.id}
+                onClick={() => handleHeaderClick(product.id)}
+                className={`relative h-12 px-6 font-body text-base font-medium transition-colors duration-300 ${
+                  activeProduct === product.id
+                    ? 'text-white'
+                    : 'text-white/50 hover:text-white/80'
                 }`}
               >
-                {study.tabLogo ? (
-                  <img
-                    src={study.tabLogo}
-                    alt={study.tabLogoAlt}
-                    className={`object-contain h-[30px] w-[120px] transition-all duration-300 ${
-                      activeIndex !== index ? 'grayscale opacity-50' : 'opacity-100'
-                    }`}
-                  />
-                ) : (
-                  <span className={`font-semibold text-gray-700 transition-colors duration-300 h-[30px] flex items-center justify-center w-[120px] ${
-                    activeIndex !== index ? 'opacity-50' : 'opacity-100'
-                  }`}>
-                    {study.tag}
-                  </span>
+                {product.label}
+                {activeProduct === product.id && (
+                  <span className="absolute bottom-[-1.5px] left-0 right-0 h-[3px] rounded-full bg-[#6C4FE0]" />
                 )}
               </button>
             ))}
           </div>
         </div>
+
+        {/* Mobile Content */}
+        <div className="lg:hidden relative" style={{ minHeight: '700px' }}>
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                activeProduct === product.id
+                  ? 'opacity-100'
+                  : 'pointer-events-none opacity-0'
+              }`}
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
-

@@ -106,11 +106,11 @@ export const HowItWorks = () => {
       `}</style>
       <section 
         ref={sectionRef}
-        className="bg-black py-16 lg:py-20 relative"
+        className="bg-black py-12 sm:py-16 lg:py-20 relative"
       >
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main Container with Left and Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 relative items-start">
+          {/* Desktop Layout - Left Content, Right Sticky GIF */}
+          <div className="hidden lg:grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 relative items-start">
             {/* Left Column - All Content Blocks Stacked Vertically */}
             <div className="lg:pr-8">
               {expertiseBlocks.map((block, index) => (
@@ -119,13 +119,13 @@ export const HowItWorks = () => {
                   ref={(el) => {
                     blockRefs.current[index] = el;
                   }}
-                  className={index === expertiseBlocks.length - 1 ? 'mb-0' : 'mb-16 lg:mb-20'}
-                  style={{ minHeight: '450px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}
+                  className={`${index === expertiseBlocks.length - 1 ? 'mb-0' : 'mb-20'} min-h-[450px]`}
+                  style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}
                 >
                   <div className="bg-gradient-to-r from-[#00A1FF] to-[#0066CC] bg-clip-text text-transparent font-bold text-sm tracking-[0.1em] uppercase mb-4">
                     {block.tag}
                   </div>
-                  <h2 className="font-bold text-white text-xl md:text-2xl lg:text-3xl leading-tight mb-6">
+                  <h2 className="font-bold text-white text-xl lg:text-2xl xl:text-3xl leading-tight mb-6">
                     {block.headline}
                   </h2>
                   <p className="text-base text-white/70 leading-relaxed max-w-[600px]">
@@ -136,7 +136,7 @@ export const HowItWorks = () => {
             </div>
 
             {/* Right Column - Sticky Wrapper that contains the sticky container */}
-            <div className="hidden lg:block">
+            <div>
               {/* This wrapper ensures the sticky container has enough space to stick */}
               <div 
                 ref={stickyWrapperRef}
@@ -183,26 +183,39 @@ export const HowItWorks = () => {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Mobile GIF - Show below each content block */}
-            <div className="lg:hidden">
-              {expertiseBlocks.map((block, index) => (
-                <div
-                  key={index}
-                  className="mb-12"
-                >
+          {/* Mobile Layout - Alternating Content and GIF */}
+          <div className="lg:hidden">
+            {expertiseBlocks.map((block, index) => (
+              <div key={index} className={index === expertiseBlocks.length - 1 ? 'mb-0' : 'mb-8 sm:mb-12'}>
+                {/* Content Block */}
+                <div className="mb-4 sm:mb-6">
+                  <div className="bg-gradient-to-r from-[#00A1FF] to-[#0066CC] bg-clip-text text-transparent font-bold text-xs sm:text-sm tracking-[0.1em] uppercase mb-2 sm:mb-3">
+                    {block.tag}
+                  </div>
+                  <h2 className="font-bold text-white text-base sm:text-lg md:text-xl leading-tight mb-3 sm:mb-4">
+                    {block.headline}
+                  </h2>
+                  <p className="text-xs sm:text-sm md:text-base text-white/70 leading-relaxed">
+                    {block.description}
+                  </p>
+                </div>
+                
+                {/* Animation GIF */}
+                <div className="mb-8 sm:mb-12">
                   <img
                     src={block.gif}
                     alt={block.headline}
-                    className="w-full h-auto max-h-[400px] object-contain"
+                    className="w-full h-auto max-h-[300px] sm:max-h-[400px] object-contain"
                     loading="lazy"
                   />
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 };

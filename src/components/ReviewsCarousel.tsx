@@ -59,45 +59,32 @@ const ClientCard = ({ client }: { client: Client }) => {
           rgba(0, 0, 0, 0.01) 0px 0px 0px 2px inset`
       }}
     >
-      <div className="p-6 md:p-8 flex flex-col h-full relative z-10">
+      <div className="p-4 sm:p-6 md:p-8 flex flex-col h-full relative z-10">
         {/* Logo */}
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-4 sm:mb-6">
           <img
             src={client.logo}
             alt={client.name}
-            className="h-8 w-auto"
+            className="h-6 sm:h-8 w-auto"
             loading="lazy"
           />
-          <svg
-            className="w-5 h-5 text-white/60 group-hover:text-white transition-colors"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
         </div>
         
         {/* Testimonial */}
         <div className="flex-grow">
-          <p className="text-base text-white/90 leading-relaxed mb-6">
+          <p className="text-sm sm:text-base text-white/90 leading-relaxed mb-4 sm:mb-6">
             "{client.testimonial}"
           </p>
         </div>
         
         {/* Author Attribution */}
         {client.author && (
-          <div className="pt-4 border-t border-white/10">
-            <p className="text-sm font-medium text-white">
+          <div className="pt-3 sm:pt-4 border-t border-white/10">
+            <p className="text-xs sm:text-sm font-medium text-white">
               {client.author}
             </p>
             {client.authorTitle && (
-              <p className="text-sm text-white/60 mt-1">
+              <p className="text-xs sm:text-sm text-white/60 mt-1">
                 {client.authorTitle}
               </p>
             )}
@@ -110,17 +97,17 @@ const ClientCard = ({ client }: { client: Client }) => {
 
 export const ReviewsCarousel = () => {
   return (
-    <section className="bg-black py-24 sm:py-32">
-      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-        <div className="text-center mb-20">
-          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl leading-[1.1] font-bold text-white text-center mb-4">
+    <section className="bg-black py-12 sm:py-24 lg:py-32">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[1.1] font-bold text-white text-center mb-3 sm:mb-4">
             You're in great company
           </h2>
-          <p className="mx-auto max-w-[900px] text-base text-white/80 leading-[1.7]">
+          <p className="mx-auto max-w-[900px] text-sm sm:text-base text-white/80 leading-[1.7] px-4">
             Discover how MuleCraft has helped leading organizations transform their integration capabilities and achieve remarkable results.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {clients.map((client) => (
             <ClientCard key={client.id} client={client} />
           ))}

@@ -165,11 +165,10 @@ const ProductCard = ({ product, isActive }: { product: Product; isActive: boolea
   return (
     <div
       ref={cardRef}
-      className={`relative h-full overflow-hidden backdrop-blur-[16px] p-6 md:p-8 lg:p-12 transition-all duration-500 ${
+      className={`relative h-full overflow-hidden backdrop-blur-[16px] p-4 sm:p-5 md:p-6 lg:p-8 xl:p-12 transition-all duration-500 min-h-0 sm:min-h-[600px] md:min-h-[700px] ${
         isVisible ? 'opacity-100' : 'opacity-50'
       }`}
       style={{ 
-        minHeight: '700px',
         borderRadius: '2.4rem',
         background: isActive 
           ? 'linear-gradient(180deg, rgba(23, 23, 23, 0.3) 0%, rgba(23, 23, 23, 0.3) 60%, rgba(0, 161, 255, 0.2) 80%, rgba(0, 128, 255, 0.3) 100%)'
@@ -196,27 +195,27 @@ const ProductCard = ({ product, isActive }: { product: Product; isActive: boolea
              rgba(0, 0, 0, 0.01) 0px 0px 0px 2px inset`
       }}
     >
-      <div className="relative z-10 grid h-full grid-cols-1 items-start gap-12 lg:grid-cols-2">
+      <div className="relative z-10 grid h-full grid-cols-1 items-start gap-6 sm:gap-8 lg:gap-12 lg:grid-cols-2">
         <div className="flex flex-col">
-          <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-medium text-white mb-4">{product.title}</h3>
-          <p className="text-white/70 text-base mb-8 leading-relaxed">{product.description}</p>
+          <h3 className="font-display text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium text-white mb-2 sm:mb-3 md:mb-4">{product.title}</h3>
+          <p className="text-white/70 text-xs sm:text-sm md:text-base mb-4 sm:mb-6 md:mb-8 leading-relaxed">{product.description}</p>
           
-          <div className="space-y-6">
+          <div className="space-y-3 sm:space-y-4 md:space-y-6">
             {product.features.map((feature, index) => (
               <div key={index}>
-                <p className="font-mono text-xs uppercase tracking-wider text-white/60 mb-2">
+                <p className="font-mono text-[10px] sm:text-xs uppercase tracking-wider text-white/60 mb-1 sm:mb-2">
                   {feature.label}
                 </p>
-                <p className="text-base text-white/90 leading-relaxed">{feature.description}</p>
+                <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
           
-          <div className="mt-8">
-            <h4 className="font-body text-sm text-white/60 mb-3 uppercase tracking-wider">Featured capabilities</h4>
-            <div className="flex flex-wrap gap-x-3 gap-y-2">
+          <div className="mt-4 sm:mt-6 md:mt-8">
+            <h4 className="font-body text-[10px] sm:text-xs md:text-sm text-white/60 mb-2 sm:mb-3 uppercase tracking-wider">Featured capabilities</h4>
+            <div className="flex flex-wrap gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1.5 sm:gap-y-2">
               {product.capabilities.map((cap) => (
-                <span key={cap} className="text-sm text-white/70 bg-white/5 px-3 py-1 rounded-md">
+                <span key={cap} className="text-[10px] sm:text-xs md:text-sm text-white/70 bg-white/5 px-1.5 sm:px-2 md:px-3 py-0.5 sm:py-1 rounded-md">
                   {cap}
                 </span>
               ))}
@@ -227,7 +226,7 @@ const ProductCard = ({ product, isActive }: { product: Product; isActive: boolea
             href={product.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-block rounded-lg bg-gradient-to-r from-[#00A1FF] to-[#0066CC] px-6 py-3 font-medium text-white transition-all hover:from-[#0080CC] hover:to-[#0052A3] self-start"
+            className="mt-4 sm:mt-6 md:mt-8 inline-block rounded-lg bg-gradient-to-r from-[#00A1FF] to-[#0066CC] px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 text-xs sm:text-sm md:text-base font-medium text-white transition-all hover:from-[#0080CC] hover:to-[#0052A3] self-start"
           >
             Learn more
           </a>
@@ -371,15 +370,54 @@ export const CaseStudyCarousel = () => {
   }, []);
 
   return (
-    <section className="bg-black py-24 sm:py-32" ref={sectionRef}>
+    <section className="bg-black py-12 sm:py-16 md:py-24 lg:py-32" ref={sectionRef}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white mb-16">
+        <h2 className="text-center font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white mb-6 sm:mb-8 md:mb-12 lg:mb-16 px-2">
           Built for what you're building
         </h2>
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
+        {/* Mobile Tabs - Display First on Mobile */}
+        <div className="mb-6 sm:mb-8 border-b border-white/10 lg:hidden overflow-x-auto">
+          <div className="mx-auto flex min-w-max justify-center px-4" role="tablist">
+            {products.map((product) => (
+              <button
+                key={product.id}
+                onClick={() => handleHeaderClick(product.id)}
+                className={`relative h-10 sm:h-12 px-3 sm:px-6 font-body text-xs sm:text-sm md:text-base font-medium transition-colors duration-300 whitespace-nowrap ${
+                  activeProduct === product.id
+                    ? 'text-white'
+                    : 'text-white/50 hover:text-white/80'
+                }`}
+              >
+                {product.label}
+                {activeProduct === product.id && (
+                  <span className="absolute bottom-[-1.5px] left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-[#00A1FF] to-[#0066CC]" />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Content - Display Second on Mobile */}
+        <div className="lg:hidden relative mb-8" style={{ minHeight: '400px' }}>
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                activeProduct === product.id
+                  ? 'opacity-100 relative z-10'
+                  : 'pointer-events-none opacity-0 absolute z-0'
+              }`}
+            >
+              <ProductCard product={product} isActive={activeProduct === product.id} />
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 relative">
           {/* Left Sidebar - Fixed */}
-          <div className="lg:col-span-3 hidden lg:block">
+          <div className="lg:col-span-3">
             <div
               ref={stickyWrapperRef}
               className="relative"
@@ -439,44 +477,6 @@ export const CaseStudyCarousel = () => {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Mobile Tabs */}
-        <div className="mt-12 mb-8 border-b border-white/10 lg:hidden">
-          <div className="mx-auto flex max-w-md justify-center" role="tablist">
-            {products.map((product) => (
-              <button
-                key={product.id}
-                onClick={() => handleHeaderClick(product.id)}
-                className={`relative h-12 px-6 font-body text-base font-medium transition-colors duration-300 ${
-                  activeProduct === product.id
-                    ? 'text-white'
-                    : 'text-white/50 hover:text-white/80'
-                }`}
-              >
-                {product.label}
-                {activeProduct === product.id && (
-                  <span className="absolute bottom-[-1.5px] left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-[#00A1FF] to-[#0066CC]" />
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile Content */}
-        <div className="lg:hidden relative" style={{ minHeight: '700px' }}>
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
-                activeProduct === product.id
-                  ? 'opacity-100'
-                  : 'pointer-events-none opacity-0'
-              }`}
-            >
-              <ProductCard product={product} isActive={activeProduct === product.id} />
-            </div>
-          ))}
         </div>
       </div>
     </section>

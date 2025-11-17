@@ -6,22 +6,27 @@ const slideData = [
   {
     headline: 'Empowering Your Digital Connectivity with MuleSoft Mastery!',
     subheadline: 'Connect everything with one platform for Integration, Automation, API, Data, and AI Management.',
+    image: '/heroanimation.webp',
   },
   {
     headline: '1000+ integrations delivering value',
     subheadline: 'Join hundreds of organizations worldwide who trust MuleCraft for their MuleSoft integration journey.',
+    image: '/aipageimage.webp',
   },
   {
     headline: 'Transform your business with expert MuleSoft consulting',
     subheadline: 'Discover how MuleCraft delivers integration excellence and drives measurable business outcomes.',
+    image: '/aipageimage1.webp',
   },
   {
     headline: 'MuleCraft: Your Trusted MuleSoft Partner',
     subheadline: 'Comprehensive consulting services for integration strategies, optimization, and best practices.',
+    image: '/aipageimage.webp',
   },
   {
     headline: 'Accelerate your digital transformation with MuleSoft',
     subheadline: 'Leverage our expertise to build scalable, efficient integrations that drive innovation and growth.',
+    image: '/heroanimation.webp',
   },
 ];
 
@@ -110,6 +115,7 @@ export const HeroCarousel = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const videoSectionRef = useRef<HTMLDivElement>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const goToSlide = useCallback((index: number) => {
     setActiveIndex(index);
@@ -150,17 +156,7 @@ export const HeroCarousel = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setOpenDropdown(null);
-      }
-    };
-    if (openDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [openDropdown]);
+  // Removed click outside handler since we're using hover now
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -248,6 +244,25 @@ export const HeroCarousel = () => {
           z-index: 1;
           pointer-events: none;
         }
+        nav a[href^="#"],
+        nav .nav-link {
+          border-bottom: none !important;
+          text-decoration: none !important;
+          box-shadow: none !important;
+          outline: none !important;
+        }
+        nav a[href^="#"]:hover,
+        nav .nav-link:hover {
+          text-decoration: none !important;
+          border-bottom: none !important;
+          box-shadow: none !important;
+        }
+        nav a[href^="#"]:focus,
+        nav .nav-link:focus {
+          text-decoration: none !important;
+          border-bottom: none !important;
+          outline: none !important;
+        }
       `}</style>
       <div className="bg-black">
         {/* Fixed Navigation Bar */}
@@ -269,33 +284,60 @@ export const HeroCarousel = () => {
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center gap-6" ref={dropdownRef}>
                 {/* Services Dropdown */}
-                <div className="relative">
+                <div 
+                  className="relative"
+                  onMouseEnter={() => {
+                    if (dropdownTimeoutRef.current) {
+                      clearTimeout(dropdownTimeoutRef.current);
+                      dropdownTimeoutRef.current = null;
+                    }
+                    setOpenDropdown('services');
+                  }}
+                  onMouseLeave={() => {
+                    dropdownTimeoutRef.current = setTimeout(() => {
+                      setOpenDropdown(null);
+                    }, 200);
+                  }}
+                >
                   <button
-                    onClick={() => setOpenDropdown(openDropdown === 'services' ? null : 'services')}
-                    className={`flex items-center gap-1 text-[15px] font-medium transition-colors ${
-                      isScrolled 
-                        ? openDropdown === 'services' 
-                          ? 'text-white border-b-2 border-white pb-1' 
-                          : 'text-white/80 hover:text-white'
-                        : openDropdown === 'services'
-                          ? 'text-white border-b-2 border-white pb-1'
-                          : 'text-white/80 hover:text-white'
+                    className={`flex items-center gap-1 text-[15px] font-medium transition-colors relative group ${
+                      openDropdown === 'services' 
+                        ? 'text-white' 
+                        : 'text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent'
                     }`}
                   >
                     Services
-                    <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === 'services' ? 'rotate-180' : ''}`} />
+                    <ChevronDown className="h-4 w-4" />
+                    {(openDropdown === 'services') && (
+                      <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full"></span>
+                    )}
                   </button>
                   {openDropdown === 'services' && (
-                    <div className="fixed top-16 left-0 right-0 bg-black shadow-xl border-t border-white/10 overflow-hidden z-[99]">
-                      <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-4 p-6 gap-6">
+                    <div 
+                      className="services-dropdown fixed top-16 left-0 right-0 bg-black shadow-xl border-t border-white/10 overflow-hidden z-[99]"
+                      onMouseEnter={() => {
+                        if (dropdownTimeoutRef.current) {
+                          clearTimeout(dropdownTimeoutRef.current);
+                          dropdownTimeoutRef.current = null;
+                        }
+                        setOpenDropdown('services');
+                      }}
+                      onMouseLeave={() => {
+                        dropdownTimeoutRef.current = setTimeout(() => {
+                          setOpenDropdown(null);
+                        }, 200);
+                      }}
+                      style={{ marginTop: '0px', paddingTop: '1px' }}
+                    >
+                      <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-8">
+                        <div className="grid grid-cols-4 gap-8">
                         {/* Popular Services */}
-                        <div className="bg-white/5 p-4 rounded-lg">
-                          <h3 className="font-bold text-white text-sm mb-3">Popular Services</h3>
-                          <ul className="space-y-2">
+                        <div>
+                          <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-4 text-white/60">POPULAR SERVICES</h3>
+                          <ul className="space-y-3">
                             {servicesData.popular.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white/80 text-sm hover:text-white hover:underline">
+                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
                                   {item.text}
                                 </a>
                               </li>
@@ -304,11 +346,11 @@ export const HeroCarousel = () => {
                         </div>
                         {/* Mulesoft */}
                         <div>
-                          <h3 className="font-bold text-white text-sm mb-3">Mulesoft</h3>
-                          <ul className="space-y-2">
+                          <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-4 text-white/60">MULESOFT</h3>
+                          <ul className="space-y-3">
                             {servicesData.mulesoft.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white/80 text-sm hover:text-white hover:underline">
+                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
                                   {item.text}
                                 </a>
                               </li>
@@ -317,11 +359,11 @@ export const HeroCarousel = () => {
                         </div>
                         {/* Salesforce */}
                         <div>
-                          <h3 className="font-bold text-white text-sm mb-3">Salesforce</h3>
-                          <ul className="space-y-2">
+                          <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-4 text-white/60">SALESFORCE</h3>
+                          <ul className="space-y-3">
                             {servicesData.salesforce.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white/80 text-sm hover:text-white hover:underline">
+                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
                                   {item.text}
                                 </a>
                               </li>
@@ -330,11 +372,11 @@ export const HeroCarousel = () => {
                         </div>
                         {/* Other Services */}
                         <div>
-                          <h3 className="font-bold text-white text-sm mb-3">Other Services</h3>
-                          <ul className="space-y-2">
+                          <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-4 text-white/60">OTHER SERVICES</h3>
+                          <ul className="space-y-3">
                             {servicesData.other.map((item, idx) => (
                               <li key={idx}>
-                                <a href={item.href} className="text-white/80 text-sm hover:text-white hover:underline">
+                                <a href={item.href} className="text-white text-sm hover:text-white/80 transition-colors block">
                                   {item.text}
                                 </a>
                               </li>
@@ -342,7 +384,7 @@ export const HeroCarousel = () => {
                           </ul>
                         </div>
                         </div>
-                        <div className="bg-white/5 px-6 py-4 flex items-center justify-between border-t border-white/10">
+                        <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
                           <a href="#" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors">
                             Let's Go
                           </a>
@@ -357,35 +399,62 @@ export const HeroCarousel = () => {
                 </div>
 
                 {/* Products Dropdown */}
-                <div className="relative">
+                <div 
+                  className="relative"
+                  onMouseEnter={() => {
+                    if (dropdownTimeoutRef.current) {
+                      clearTimeout(dropdownTimeoutRef.current);
+                      dropdownTimeoutRef.current = null;
+                    }
+                    setOpenDropdown('products');
+                  }}
+                  onMouseLeave={() => {
+                    dropdownTimeoutRef.current = setTimeout(() => {
+                      setOpenDropdown(null);
+                    }, 200);
+                  }}
+                >
                   <button
-                    onClick={() => setOpenDropdown(openDropdown === 'products' ? null : 'products')}
-                    className={`flex items-center gap-1 text-[15px] font-medium transition-colors ${
-                      isScrolled 
-                        ? openDropdown === 'products' 
-                          ? 'text-white border-b-2 border-white pb-1' 
-                          : 'text-white/80 hover:text-white'
-                        : openDropdown === 'products'
-                          ? 'text-white border-b-2 border-white pb-1'
-                          : 'text-white/80 hover:text-white'
+                    className={`flex items-center gap-1 text-[15px] font-medium transition-colors relative group ${
+                      openDropdown === 'products' 
+                        ? 'text-white' 
+                        : 'text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent'
                     }`}
                   >
                     Products
-                    <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === 'products' ? 'rotate-180' : ''}`} />
+                    <ChevronDown className="h-4 w-4" />
+                    {(openDropdown === 'products') && (
+                      <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full"></span>
+                    )}
                   </button>
                   {openDropdown === 'products' && (
-                    <div className="fixed top-16 left-0 right-0 bg-black shadow-xl border-t border-white/10 overflow-hidden z-[99]">
-                      <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-3 p-6 gap-6">
+                    <div 
+                      className="products-dropdown fixed top-16 left-0 right-0 bg-black shadow-xl border-t border-white/10 overflow-hidden z-[99]"
+                      onMouseEnter={() => {
+                        if (dropdownTimeoutRef.current) {
+                          clearTimeout(dropdownTimeoutRef.current);
+                          dropdownTimeoutRef.current = null;
+                        }
+                        setOpenDropdown('products');
+                      }}
+                      onMouseLeave={() => {
+                        dropdownTimeoutRef.current = setTimeout(() => {
+                          setOpenDropdown(null);
+                        }, 200);
+                      }}
+                      style={{ marginTop: '0px', paddingTop: '1px' }}
+                    >
+                      <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-8">
+                        <div className="grid grid-cols-3 gap-8">
                           {/* Recently Launched */}
-                          <div className="bg-white/5 p-4 rounded-lg">
-                            <h3 className="font-bold text-white text-sm mb-3">Recently Launched</h3>
-                            <ul className="space-y-2">
+                          <div>
+                            <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-4 text-white/60">RECENTLY LAUNCHED</h3>
+                            <ul className="space-y-3">
                               {productsData.recentlyLaunched.map((item, idx) => (
                                 <li key={idx}>
                                   <a 
                                     href={item.href} 
-                                    className="bg-gradient-to-r from-[#00A1FF] to-[#0066CC] bg-clip-text text-transparent text-sm hover:underline font-medium"
+                                    className="text-white text-sm hover:text-white/80 transition-colors block"
                                     target={item.href.startsWith('http') ? '_blank' : undefined}
                                     rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                                   >
@@ -397,13 +466,13 @@ export const HeroCarousel = () => {
                           </div>
                           {/* Mulesoft */}
                           <div>
-                            <h3 className="font-bold text-white text-sm mb-3">Mulesoft</h3>
-                            <ul className="space-y-2">
+                            <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-4 text-white/60">MULESOFT</h3>
+                            <ul className="space-y-3">
                               {productsData.mulesoft.map((item, idx) => (
                                 <li key={idx}>
                                   <a 
                                     href={item.href} 
-                                    className="text-white/80 text-sm hover:text-white hover:underline"
+                                    className="text-white text-sm hover:text-white/80 transition-colors block"
                                     target={item.href.startsWith('http') ? '_blank' : undefined}
                                     rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                                   >
@@ -415,13 +484,13 @@ export const HeroCarousel = () => {
                           </div>
                           {/* Other Products */}
                           <div>
-                            <h3 className="font-bold text-white text-sm mb-3">Other Products</h3>
-                            <ul className="space-y-2">
+                            <h3 className="font-bold text-white text-xs uppercase tracking-wider mb-4 text-white/60">OTHER PRODUCTS</h3>
+                            <ul className="space-y-3">
                               {productsData.other.map((item, idx) => (
                                 <li key={idx}>
                                   <a 
                                     href={item.href} 
-                                    className="text-white/80 text-sm hover:text-white hover:underline"
+                                    className="text-white text-sm hover:text-white/80 transition-colors block"
                                     target={item.href.startsWith('http') ? '_blank' : undefined}
                                     rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                                   >
@@ -432,7 +501,7 @@ export const HeroCarousel = () => {
                             </ul>
                           </div>
                         </div>
-                        <div className="bg-white/5 px-6 py-4 flex items-center justify-between border-t border-white/10">
+                        <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
                           <a href="#" className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors">
                             Let's Go
                           </a>
@@ -446,20 +515,26 @@ export const HeroCarousel = () => {
                   )}
                 </div>
 
-                <a href="#about" className={`text-[15px] font-medium transition-colors ${
-                  isScrolled ? 'text-white/80 hover:text-white' : 'text-white/80 hover:text-white'
-                }`}>
+                <a 
+                  href="#about" 
+                  className="nav-link text-[15px] font-medium transition-colors relative text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent group"
+                >
                   About
+                  <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </a>
-                <a href="#resources" className={`text-[15px] font-medium transition-colors ${
-                  isScrolled ? 'text-white/80 hover:text-white' : 'text-white/80 hover:text-white'
-                }`}>
+                <a 
+                  href="#resources" 
+                  className="nav-link text-[15px] font-medium transition-colors relative text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent group"
+                >
                   Resources
+                  <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </a>
-                <a href="#contact" className={`text-[15px] font-medium transition-colors ${
-                  isScrolled ? 'text-white/80 hover:text-white' : 'text-white/80 hover:text-white'
-                }`}>
+                <a 
+                  href="#contact" 
+                  className="nav-link text-[15px] font-medium transition-colors relative text-white/80 hover:bg-gradient-to-r hover:from-[#00A1FF] hover:to-[#0066CC] hover:bg-clip-text hover:text-transparent group"
+                >
                   Contact Us
+                  <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#00A1FF] to-[#0066CC] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </a>
               </div>
               
@@ -561,7 +636,7 @@ export const HeroCarousel = () => {
 
         <section 
           ref={videoSectionRef}
-          className="video-section relative overflow-hidden text-white pt-16 h-screen"
+          className="video-section relative overflow-hidden text-white pt-16 min-h-[600px] sm:min-h-[700px] lg:h-screen"
         >
           {/* Background Video */}
           <div className="absolute inset-0 z-0">
@@ -597,11 +672,11 @@ export const HeroCarousel = () => {
           </div>
           
           <div className="relative z-10 flex h-full flex-col">
-            <div className="container mx-auto flex flex-grow flex-col items-center justify-center px-4 sm:px-4 lg:px-6 text-center lg:text-left">
+            <div className="container mx-auto flex flex-grow flex-col items-center justify-center px-4 sm:px-4 lg:px-6 text-center lg:text-left py-8 sm:py-12 lg:py-0">
               <div className="max-w-[1400px] w-full">
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 lg:gap-8">
               <div className="relative z-10 flex flex-col justify-center">
-                <div className="relative min-h-[140px] md:min-h-[160px] lg:min-h-[180px] mb-4 overflow-hidden">
+                <div className="relative min-h-[120px] sm:min-h-[140px] md:min-h-[160px] lg:min-h-[180px] mb-3 sm:mb-4 overflow-hidden">
                   {slideData.map((slide, index) => (
                     <div
                       key={index}
@@ -609,26 +684,26 @@ export const HeroCarousel = () => {
                       className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
                       aria-hidden={activeIndex !== index}
                     >
-                      <h1 className="font-bold text-2xl leading-tight md:text-3xl lg:text-4xl lg:leading-[1.2] text-white">
+                      <h1 className="font-bold text-xl sm:text-2xl leading-tight md:text-3xl lg:text-4xl lg:leading-[1.2] text-white">
                         {slide.headline}
                       </h1>
-                      <p className="mx-auto mt-3 max-w-xl text-sm text-white/80 lg:mx-0 lg:text-base lg:leading-[1.5]">
+                      <p className="mx-auto mt-2 sm:mt-3 max-w-xl text-xs sm:text-sm text-white/80 lg:mx-0 lg:text-base lg:leading-[1.5]">
                         {slide.subheadline}
                       </p>
                     </div>
                   ))}
                 </div>
 
-                <div className="relative z-20 mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+                <div className="relative z-20 mt-3 sm:mt-4 flex flex-col items-center gap-2 sm:gap-3 sm:flex-row sm:justify-center lg:justify-start w-full sm:w-auto">
                   <a
                     href="#"
-                    className="inline-block whitespace-nowrap rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-105"
+                    className="inline-block whitespace-nowrap rounded-full bg-white px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-black transition-transform hover:scale-105 w-full sm:w-auto text-center"
                   >
                     Watch demo
                   </a>
                   <a
                     href="#"
-                    className="inline-block whitespace-nowrap rounded-full border-2 border-white bg-transparent px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                    className="inline-block whitespace-nowrap rounded-full border-2 border-white bg-transparent px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition-colors hover:bg-white/10 w-full sm:w-auto text-center"
                   >
                     Contact
                   </a>
@@ -636,30 +711,35 @@ export const HeroCarousel = () => {
               </div>
 
               <div className="relative hidden w-full lg:block">
-                <div className="float-animation">
-                  <img
-                    src="/heroanimation.webp"
-                    alt="MuleCraft integration platform visualization"
-                    className="h-auto w-full"
-                  />
+                <div className="float-animation relative w-full">
+                  {slideData.map((slide, index) => (
+                    <img
+                      key={index}
+                      src={slide.image}
+                      alt="MuleCraft integration platform visualization"
+                      className={`h-auto w-full transition-opacity duration-500 ease-in-out ${
+                        activeIndex === index ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 z-0 pointer-events-none'
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
 
             {/* Desktop Controls */}
-            <div className="absolute bottom-[140px] left-1/2 hidden -translate-x-1/2 items-center justify-center gap-3 lg:flex z-30">
+            <div className="absolute bottom-[140px] left-1/2 hidden -translate-x-1/2 items-center justify-center gap-4 lg:flex z-30">
               <button 
                 onClick={prevSlide} 
                 aria-label="Previous slide" 
                 className="text-white/60 hover:text-white transition-colors"
               >
-                <ChevronLeft className="h-4 w-4 stroke-2" />
+                <ChevronLeft className="h-6 w-6 stroke-2" />
               </button>
               {slideData.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                  className={`h-2.5 w-2.5 rounded-full transition-colors ${
                     activeIndex === index 
                       ? 'bg-white' 
                       : 'bg-white/30 hover:bg-white/50'
@@ -672,24 +752,24 @@ export const HeroCarousel = () => {
                 aria-label="Next slide" 
                 className="text-white hover:opacity-80 transition-opacity"
               >
-                <ChevronRight className="h-4 w-4 stroke-2" />
+                <ChevronRight className="h-6 w-6 stroke-2" />
               </button>
             </div>
 
             {/* Mobile Controls */}
-            <div className="mt-6 flex items-center justify-center gap-3 lg:hidden">
+            <div className="mt-4 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4 lg:hidden">
             <button
               onClick={prevSlide}
               aria-label="Previous slide"
                 className="text-white/60 hover:text-white transition-colors"
-              >
-                <ChevronLeft className="h-5 w-5 stroke-2" />
+            >
+                <ChevronLeft className="h-6 w-6 stroke-2" />
               </button>
               {slideData.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                  className={`h-2.5 w-2.5 rounded-full transition-colors ${
                     activeIndex === index 
                       ? 'bg-white' 
                       : 'bg-white/30 hover:bg-white/50'
@@ -702,7 +782,7 @@ export const HeroCarousel = () => {
                 aria-label="Next slide" 
                 className="text-white hover:opacity-80 transition-opacity"
               >
-                <ChevronRight className="h-5 w-5 stroke-2" />
+                <ChevronRight className="h-6 w-6 stroke-2" />
               </button>
             </div>
               </div>
